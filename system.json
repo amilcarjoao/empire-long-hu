@@ -2,7 +2,7 @@
   "id": "empire-long-hu",
   "title": "L'Empire de la Long-Hu",
   "description": "Un système personnalisé pour le JDR maison L'Empire de la Long-Hu",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "compatibility": {
     "minimum": "12",
     "verified": "12.343",
@@ -32,9 +32,9 @@
   },
   "primaryTokenAttribute": null,
   "secondaryTokenAttribute": null,
-  "url": "",
-  "manifest": "",
-  "download": "",
+  "url": "https://github.com/amilcarjoao/empire-long-hu",
+  "manifest": "https://raw.githubusercontent.com/amilcarjoao/empire-long-hu/main/system.json",
+  "download": "https://github.com/amilcarjoao/empire-long-hu/archive/refs/heads/main.zip",
   "license": "LICENSE",
   "readme": "README.md"
 }
