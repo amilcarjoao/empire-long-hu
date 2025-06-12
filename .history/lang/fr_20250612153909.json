@@ -1,0 +1,25 @@
+{
+  "empire-long-hu": {
+    "nom": "L'Empire de la Long-Hu",
+    "attributs": {
+      "force": "Force",
+      "dexterite": "Dextérité",
+      "constitution": "Constitution",
+      "intelligence": "Intelligence",
+      "sagesse": "Sagesse",
+      "charisme": "Charisme"
+    },
+    "personnage": {
+      "sante": "Santé",
+      "endurance": "Endurance",
+      "niveau": "Niveau",
+      "experience": "Expérience"
+    },
+    "items": {
+      "arme": "Arme",
+      "armure": "Armure",
+      "objet": "Objet",
+      "competence": "Compétence"
+    }
+  }
+}
