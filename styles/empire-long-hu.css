@@ -27,3 +27,95 @@
   margin: 0;
   padding: 5px;
 }
+
+/* Styles pour les onglets */
+.empire-sheet .sheet-tabs {
+  flex: 0 0 30px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.empire-sheet .sheet-tabs .item {
+  padding: 5px;
+  margin: 0 5px;
+  border-bottom: 2px solid #800000;
+}
+
+.empire-sheet .sheet-tabs .item.active {
+  border-bottom: 2px solid #ff0000;
+}
+
+/* Styles pour les ressources */
+.empire-sheet .resource {
+  margin-bottom: 10px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.empire-sheet .resource-label {
+  font-weight: bold;
+}
+
+/* Styles pour les listes d'objets */
+.empire-sheet .items-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.empire-sheet .items-list .item {
+  padding: 5px;
+  border-bottom: 1px solid #ccc;
+}
+
+.empire-sheet .items-list .item-header {
+  font-weight: bold;
+  background-color: #e0e0e0;
+}
+
+.empire-sheet .items-list .item-image {
+  flex: 0 0 24px;
+  margin-right: 5px;
+}
+
+.empire-sheet .items-list .item-name {
+  flex: 1;
+}
+
+.empire-sheet .items-list .item-controls {
+  flex: 0 0 100px;
+  text-align: right;
+}
+
+/* Grilles */
+.grid {
+  display: grid;
+  gap: 10px;
+}
+
+.grid-2col {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* Flexbox */
+.flexrow {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.flex-group-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.flex-center {
+  align-items: center;
+}
+
+.flex-between {
+  justify-content: space-between;
+}
