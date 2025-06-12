@@ -2,7 +2,7 @@
   "id": "empire-long-hu",
   "title": "L'Empire de la Long-Hu",
   "description": "Un système personnalisé pour le JDR maison L'Empire de la Long-Hu",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "compatibility": {
     "minimum": "12",
     "verified": "12.343",
