@@ -2,7 +2,7 @@
   "id": "empire-long-hu",
   "title": "L'Empire de la Long-Hu",
   "description": "Un système personnalisé pour le JDR maison L'Empire de la Long-Hu",
-  "version": "0.1.0",
+  "version": "0.0.6",
   "compatibility": {
     "minimum": "12",
     "verified": "12.343",
@@ -30,8 +30,83 @@
     "distance": 1,
     "units": "m"
   },
-  "primaryTokenAttribute": null,
-  "secondaryTokenAttribute": null,
+  "primaryTokenAttribute": "health",
+  "secondaryTokenAttribute": "endurance",
+  "documentTypes": {
+    "Actor": {
+      "character": {
+        "htmlFields": [
+          "biography.value",
+          "biography.public"
+        ]
+      },
+      "vehicle": {
+        "htmlFields": [
+          "description.value"
+        ]
+      },
+      "merchant": {
+        "htmlFields": [
+          "description.value"
+        ]
+      },
+      "regiment": {
+        "htmlFields": [
+          "description.value"
+        ]
+      }
+    },
+    "Item": {
+      "weapon": {
+        "htmlFields": [
+          "description.value",
+          "description.chat"
+        ]
+      },
+      "armor": {
+        "htmlFields": [
+          "description.value",
+          "description.chat"
+        ]
+      },
+      "equipment": {
+        "htmlFields": [
+          "description.value",
+          "description.chat"
+        ]
+      },
+      "class": {
+        "htmlFields": [
+          "description.value",
+          "description.chat"
+        ]
+      },
+      "background": {
+        "htmlFields": [
+          "description.value",
+          "description.chat"
+        ]
+      },
+      "learning": {
+        "htmlFields": [
+          "description.value",
+          "description.chat"
+        ]
+      },
+      "technique": {
+        "htmlFields": [
+          "description.value",
+          "description.chat"
+        ]
+      },
+      "object": {
+        "htmlFields": [
+          "description.value",
+          "description.chat"
+        ]
+      }
+    }
+  },
   "url": "https://github.com/amilcarjoao/empire-long-hu",
   "manifest": "https://raw.githubusercontent.com/amilcarjoao/empire-long-hu/main/system.json",
   "download": "https://github.com/amilcarjoao/empire-long-hu/archive/refs/heads/main.zip",
