@@ -111,17 +111,5 @@
   "manifest": "https://raw.githubusercontent.com/amilcarjoao/empire-long-hu/main/system.json",
   "download": "https://github.com/amilcarjoao/empire-long-hu/archive/refs/heads/main.zip",
   "license": "LICENSE",
-  "readme": "README.md",
-  "dependencies": [
-    {
-      "name": "drag-ruler",
-      "type": "module",
-      "manifest": "https://github.com/manuelVo/foundryvtt-drag-ruler/releases/latest/download/module.json"
-    },
-    {
-      "name": "simple-calendar",
-      "type": "module",
-      "manifest": "https://github.com/vigoren/foundryvtt-simple-calendar/releases/latest/download/module.json"
-    }
-  ]
+  "readme": "README.md"
 }
