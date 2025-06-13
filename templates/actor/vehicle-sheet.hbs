@@ -1,0 +1,67 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+  <header class="sheet-header">
+    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+    <div class="header-fields">
+      <h1 class="charname">
+        <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'Name'}}" />
+      </h1>
+      <div class="resource-group">
+        <div class="resource health">
+          <label>{{localize "empire-long-hu.character.health"}}</label>
+          <div class="resource-content flexrow flex-center flex-between">
+            <input type="text" name="system.health.value" value="{{system.health.value}}" data-dtype="Number" />
+            <span class="sep">/</span>
+            <input type="text" name="system.health.max" value="{{system.health.max}}" data-dtype="Number" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="description">{{localize "empire-long-hu.tabs.description"}}</a>
+    <a class="item" data-tab="crew">{{localize "empire-long-hu.tabs.crew"}}</a>
+    <a class="item" data-tab="cargo">{{localize "empire-long-hu.tabs.cargo"}}</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+    {{!-- Description Tab --}}
+    <div class="tab description" data-group="primary" data-tab="description">
+      {{editor descriptionHTML target="system.description.value" button=true editable=editable engine="prosemirror"}}
+    </div>
+
+    {{!-- Crew Tab --}}
+    <div class="tab crew" data-group="primary" data-tab="crew">
+      <div class="crew-list">
+        {{#each system.crew as |crewMember i|}}
+        <div class="crew-member" data-crew-id="{{i}}">
+          <img src="{{crewMember.img}}" title="{{crewMember.name}}" />
+          <span>{{crewMember.name}}</span>
+          <span class="crew-role">{{crewMember.role}}</span>
+          <a class="crew-control" data-action="remove" title="{{localize 'Remove'}}"><i class="fas fa-times"></i></a>
+        </div>
+        {{/each}}
+        <div class="crew-drop-zone">
+          <i class="fas fa-plus"></i> {{localize "empire-long-hu.vehicle.dropCrewHere"}}
+        </div>
+      </div>
+    </div>
+
+    {{!-- Cargo Tab --}}
+    <div class="tab cargo" data-group="primary" data-tab="cargo">
+      <div class="cargo-capacity">
+        <label>{{localize "empire-long-hu.vehicle.cargoCapacity"}}</label>
+        <div class="resource-content flexrow flex-center flex-between">
+          <input type="text" name="system.cargo.used" value="{{system.cargo.used}}" data-dtype="Number" disabled />
+          <span class="sep">/</span>
+          <input type="text" name="system.cargo.capacity" value="{{system.cargo.capacity}}" data-dtype="Number" />
+        </div>
+      </div>
+      <div class="cargo-items">
+        {{!-- Cargo items will be listed here --}}
+      </div>
+    </div>
+  </section>
+</form>

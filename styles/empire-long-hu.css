@@ -1,29 +1,343 @@
-/* Styles de base pour le système Empire de la Long-Hu */
-.empire-sheet {
-  min-width: 720px;
-  min-height: 680px;
+/* Empire de la Long-Hu - Feuilles de style */
+
+/* Variables */
+:root {
+  --color-metal: #c0c0c0;
+  --color-eau: #0080ff;
+  --color-terre: #8b4513;
+  --color-bois: #228b22;
+  --color-feu: #ff4500;
+  
+  --color-walk: #00ff00;
+  --color-swim: #0080ff;
+  --color-climb: #8b4513;
+  --color-fly: #87ceeb;
+  --color-burrow: #a0522d;
 }
 
-.empire-sheet .window-content {
-  background: #f0f0e0;
+/* Styles généraux */
+.empire-long-hu {
+  font-family: "Roboto", sans-serif;
 }
 
-.empire-sheet .sheet-header {
+.empire-long-hu .window-content {
+  background: url("../ui/parchment.jpg") repeat;
+}
+
+/* Feuille de personnage */
+.empire-long-hu.character .sheet-header {
   display: flex;
   flex-direction: row;
-  align-items: center;
   margin-bottom: 10px;
+  border-bottom: 2px solid #7a7971;
 }
 
-.empire-sheet .sheet-header img {
-  flex: 0 0 100px;
-  height: 100px;
+.empire-long-hu.character .header-left {
+  flex: 0 0 200px;
+  display: flex;
+  flex-direction: column;
   margin-right: 10px;
 }
 
-.empire-sheet .sheet-header h1 {
+.empire-long-hu.character .header-right {
   flex: 1;
-  border-bottom: 2px solid #800000;
-  margin: 0;
+}
+
+.empire-long-hu.character .profile-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border: 2px solid #7a7971;
+  border-radius: 5px;
+}
+
+.empire-long-hu.character .speeds {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.empire-long-hu.character .speed {
   padding: 5px;
+  margin: 2px 0;
+  border-radius: 3px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+}
+
+.empire-long-hu.character .speed.walk {
+  background-color: var(--color-walk);
+}
+
+.empire-long-hu.character .speed.swim {
+  background-color: var(--color-swim);
+}
+
+.empire-long-hu.character .speed.climb {
+  background-color: var(--color-climb);
+}
+
+.empire-long-hu.character .speed.fly {
+  background-color: var(--color-fly);
+}
+
+.empire-long-hu.character .speed.burrow {
+  background-color: var(--color-burrow);
+}
+
+.empire-long-hu.character .header-fields {
+  display: flex;
+  flex-direction: column;
+}
+
+.empire-long-hu.character .resource-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.empire-long-hu.character .resource {
+  flex: 1;
+  margin: 0 5px;
+}
+
+.empire-long-hu.character .resource label {
+  font-weight: bold;
+  margin-bottom: 3px;
+  display: block;
+}
+
+.empire-long-hu.character .resource-content {
+  display: flex;
+  align-items: center;
+}
+
+.empire-long-hu.character .resource-content input {
+  flex: 1;
+  text-align: center;
+}
+
+.empire-long-hu.character .resource-content .sep {
+  margin: 0 5px;
+}
+
+.empire-long-hu.character .elements-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.empire-long-hu.character .element {
+  flex: 1;
+  margin: 0 5px;
+  text-align: center;
+}
+
+.empire-long-hu.character .element label {
+  font-weight: bold;
+  margin-bottom: 3px;
+  display: block;
+}
+
+.empire-long-hu.character .element.metal label {
+  color: var(--color-metal);
+}
+
+.empire-long-hu.character .element.eau label {
+  color: var(--color-eau);
+}
+
+.empire-long-hu.character .element.terre label {
+  color: var(--color-terre);
+}
+
+.empire-long-hu.character .element.bois label {
+  color: var(--color-bois);
+}
+
+.empire-long-hu.character .element.feu label {
+  color: var(--color-feu);
+}
+
+.empire-long-hu.character .element input {
+  width: 40px;
+  text-align: center;
+}
+
+/* Feuille de régiment */
+.empire-long-hu.regiment .slots-container {
+  margin-bottom: 20px;
+}
+
+.empire-long-hu.regiment .regiment-slot {
+  border: 1px solid #7a7971;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
+.empire-long-hu.regiment .slot-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #7a7971;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+}
+
+.empire-long-hu.regiment .slot-members {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.empire-long-hu.regiment .slot-member {
+  display: flex;
+  align-items: center;
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+  padding: 3px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.empire-long-hu.regiment .slot-member img {
+  width: 24px;
+  height: 24px;
+  margin-right: 5px;
+}
+
+.empire-long-hu.regiment .slot-drop-zone {
+  border: 1px dashed #7a7971;
+  border-radius: 3px;
+  padding: 10px;
+  text-align: center;
+  margin-top: 5px;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.empire-long-hu.regiment .hierarchy-container {
+  margin-top: 20px;
+}
+
+.empire-long-hu.regiment .parent-drop-zone,
+.empire-long-hu.regiment .child-drop-zone {
+  border: 1px dashed #7a7971;
+  border-radius: 3px;
+  padding: 10px;
+  text-align: center;
+  margin-top: 5px;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.empire-long-hu.regiment .parent-link,
+.empire-long-hu.regiment .child-link {
+  display: flex;
+  align-items: center;
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+  padding: 5px;
+  margin-bottom: 5px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.empire-long-hu.regiment .parent-link img,
+.empire-long-hu.regiment .child-link img {
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
+}
+
+/* Onglets */
+.empire-long-hu .sheet-tabs {
+  flex: 0;
+  margin-bottom: 10px;
+}
+
+.empire-long-hu .sheet-body {
+  overflow-y: auto;
+}
+
+.empire-long-hu .tab {
+  height: 100%;
+  overflow-y: auto;
+}
+
+/* Items et listes */
+.empire-long-hu .items-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.empire-long-hu .item-header {
+  font-weight: bold;
+  border-bottom: 1px solid #7a7971;
+  margin-bottom: 5px;
+}
+
+.empire-long-hu .item {
+  line-height: 24px;
+  padding: 3px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.empire-long-hu .item-name {
+  cursor: pointer;
+}
+
+.empire-long-hu .item-controls {
+  flex: 0 0 60px;
+  text-align: right;
+}
+
+/* Effets */
+.empire-long-hu .effects-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.empire-long-hu .effect {
+  padding: 5px;
+  border-bottom: 1px solid #ddd;
+}
+
+.empire-long-hu .effect-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.empire-long-hu .effect-title {
+  font-weight: bold;
+}
+
+.empire-long-hu .effect-controls {
+  text-align: right;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .empire-long-hu.character .sheet-header {
+    flex-direction: column;
+  }
+  
+  .empire-long-hu.character .header-left {
+    flex: 0 0 auto;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+  
+  .empire-long-hu.character .resource-group,
+  .empire-long-hu.character .elements-group {
+    flex-wrap: wrap;
+  }
+  
+  .empire-long-hu.character .resource,
+  .empire-long-hu.character .element {
+    flex: 1 0 45%;
+    margin-bottom: 5px;
+  }
 }

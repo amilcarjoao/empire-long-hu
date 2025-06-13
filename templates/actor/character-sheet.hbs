@@ -1,0 +1,168 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+  <header class="sheet-header">
+    <div class="header-left">
+      <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+      <div class="speeds">
+        <div class="speed walk" title="{{localize 'empire-long-hu.speeds.walk'}}">
+          <i class="fas fa-shoe-prints"></i> {{system.speeds.walk.value}}{{system.speeds.walk.unit}}
+        </div>
+        <div class="speed swim" title="{{localize 'empire-long-hu.speeds.swim'}}">
+          <i class="fas fa-water"></i> {{system.speeds.swim.value}}{{system.speeds.swim.unit}}
+        </div>
+        <div class="speed climb" title="{{localize 'empire-long-hu.speeds.climb'}}">
+          <i class="fas fa-mountain"></i> {{system.speeds.climb.value}}{{system.speeds.climb.unit}}
+        </div>
+        <div class="speed fly" title="{{localize 'empire-long-hu.speeds.fly'}}">
+          <i class="fas fa-feather-alt"></i> {{system.speeds.fly.value}}{{system.speeds.fly.unit}}
+        </div>
+        <div class="speed burrow" title="{{localize 'empire-long-hu.speeds.burrow'}}">
+          <i class="fas fa-dungeon"></i> {{system.speeds.burrow.value}}{{system.speeds.burrow.unit}}
+        </div>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="header-fields">
+        <h1 class="charname">
+          <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'Name'}}" />
+        </h1>
+        <div class="resource-group">
+          <div class="resource level">
+            <label>{{localize "empire-long-hu.character.level"}}</label>
+            <input type="text" name="system.level" value="{{system.level}}" data-dtype="Number" />
+          </div>
+          <div class="resource class">
+            <label>{{localize "empire-long-hu.character.class"}}</label>
+            <input type="text" name="system.class" value="{{system.class}}" />
+          </div>
+        </div>
+        <div class="resource-group voix">
+          <div class="resource esprit">
+            <label>{{localize "empire-long-hu.character.voix.esprit"}}</label>
+            <input type="text" name="system.voix.esprit" value="{{system.voix.esprit}}" />
+          </div>
+          <div class="resource corps">
+            <label>{{localize "empire-long-hu.character.voix.corps"}}</label>
+            <input type="text" name="system.voix.corps" value="{{system.voix.corps}}" />
+          </div>
+        </div>
+        <div class="resource-group chi">
+          <div class="resource corporel">
+            <label>{{localize "empire-long-hu.resources.chi.corporel"}}</label>
+            <div class="resource-content flexrow flex-center flex-between">
+              <input type="text" name="system.chi.corporel.value" value="{{system.chi.corporel.value}}" data-dtype="Number" />
+              <span class="sep">/</span>
+              <input type="text" name="system.chi.corporel.max" value="{{system.chi.corporel.max}}" data-dtype="Number" />
+            </div>
+          </div>
+          <div class="resource souffle">
+            <label>{{localize "empire-long-hu.resources.souffle"}}</label>
+            <div class="resource-content flexrow flex-center flex-between">
+              <input type="text" name="system.souffle.value" value="{{system.souffle.value}}" data-dtype="Number" />
+              <span class="sep">/</span>
+              <input type="text" name="system.souffle.max" value="{{system.souffle.max}}" data-dtype="Number" />
+            </div>
+          </div>
+          <div class="resource spirituel">
+            <label>{{localize "empire-long-hu.resources.chi.spirituel"}}</label>
+            <div class="resource-content flexrow flex-center flex-between">
+              <input type="text" name="system.chi.spirituel.value" value="{{system.chi.spirituel.value}}" data-dtype="Number" />
+              <span class="sep">/</span>
+              <input type="text" name="system.chi.spirituel.max" value="{{system.chi.spirituel.max}}" data-dtype="Number" />
+            </div>
+          </div>
+        </div>
+        <div class="elements-group">
+          <div class="element metal">
+            <label>{{localize "empire-long-hu.elements.metal"}}</label>
+            <input type="text" name="system.elements.metal.value" value="{{system.elements.metal.value}}" data-dtype="Number" />
+          </div>
+          <div class="element eau">
+            <label>{{localize "empire-long-hu.elements.eau"}}</label>
+            <input type="text" name="system.elements.eau.value" value="{{system.elements.eau.value}}" data-dtype="Number" />
+          </div>
+          <div class="element terre">
+            <label>{{localize "empire-long-hu.elements.terre"}}</label>
+            <input type="text" name="system.elements.terre.value" value="{{system.elements.terre.value}}" data-dtype="Number" />
+          </div>
+          <div class="element bois">
+            <label>{{localize "empire-long-hu.elements.bois"}}</label>
+            <input type="text" name="system.elements.bois.value" value="{{system.elements.bois.value}}" data-dtype="Number" />
+          </div>
+          <div class="element feu">
+            <label>{{localize "empire-long-hu.elements.feu"}}</label>
+            <input type="text" name="system.elements.feu.value" value="{{system.elements.feu.value}}" data-dtype="Number" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="talents">{{localize "empire-long-hu.character.talents"}}</a>
+    <a class="item" data-tab="equipment">{{localize "empire-long-hu.tabs.equipment"}}</a>
+    <a class="item" data-tab="objects">{{localize "empire-long-hu.tabs.objects"}}</a>
+    <a class="item" data-tab="learning">{{localize "empire-long-hu.tabs.learning"}}</a>
+    <a class="item" data-tab="biography">{{localize "empire-long-hu.tabs.biography"}}</a>
+    <a class="item" data-tab="magic">{{localize "empire-long-hu.tabs.magic"}}</a>
+    <a class="item" data-tab="techniques">{{localize "empire-long-hu.tabs.techniques"}}</a>
+    <a class="item" data-tab="effects">{{localize "empire-long-hu.tabs.effects"}}</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+    {{!-- Talents Tab --}}
+    <div class="tab talents" data-group="primary" data-tab="talents">
+      <div class="talents-list">
+        {{!-- Talents will be listed here --}}
+      </div>
+    </div>
+
+    {{!-- Equipment Tab --}}
+    <div class="tab equipment" data-group="primary" data-tab="equipment">
+      <div class="items-list">
+        {{!-- Equipment will be listed here --}}
+      </div>
+    </div>
+
+    {{!-- Objects Tab --}}
+    <div class="tab objects" data-group="primary" data-tab="objects">
+      <div class="items-list">
+        {{!-- Objects will be listed here --}}
+      </div>
+    </div>
+
+    {{!-- Learning Tab --}}
+    <div class="tab learning" data-group="primary" data-tab="learning">
+      <div class="items-list">
+        {{!-- Learning items will be listed here --}}
+      </div>
+    </div>
+
+    {{!-- Biography Tab --}}
+    <div class="tab biography" data-group="primary" data-tab="biography">
+      {{editor biographyHTML target="system.biography.value" button=true editable=editable engine="prosemirror"}}
+    </div>
+
+    {{!-- Magic Tab --}}
+    <div class="tab magic" data-group="primary" data-tab="magic">
+      <div class="items-list">
+        {{!-- Magic items will be listed here --}}
+      </div>
+    </div>
+
+    {{!-- Techniques Tab --}}
+    <div class="tab techniques" data-group="primary" data-tab="techniques">
+      <div class="items-list">
+        {{!-- Techniques will be listed here --}}
+      </div>
+    </div>
+
+    {{!-- Effects Tab --}}
+    <div class="tab effects" data-group="primary" data-tab="effects">
+      <div class="effects-list">
+        {{!-- Effects will be listed here --}}
+      </div>
+    </div>
+  </section>
+</form>

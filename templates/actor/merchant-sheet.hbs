@@ -1,0 +1,72 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+  <header class="sheet-header">
+    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+    <div class="header-fields">
+      <h1 class="charname">
+        <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'Name'}}" />
+      </h1>
+      <div class="resource-group">
+        <div class="resource speciality">
+          <label>{{localize "empire-long-hu.merchant.speciality"}}</label>
+          <input type="text" name="system.speciality" value="{{system.speciality}}" />
+        </div>
+        <div class="resource price-modifier">
+          <label>{{localize "empire-long-hu.merchant.priceModifier"}}</label>
+          <input type="text" name="system.priceModifier" value="{{system.priceModifier}}" data-dtype="Number" />
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="description">{{localize "empire-long-hu.tabs.description"}}</a>
+    <a class="item" data-tab="inventory">{{localize "empire-long-hu.tabs.inventory"}}</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+    {{!-- Description Tab --}}
+    <div class="tab description" data-group="primary" data-tab="description">
+      {{editor descriptionHTML target="system.description.value" button=true editable=editable engine="prosemirror"}}
+    </div>
+
+    {{!-- Inventory Tab --}}
+    <div class="tab inventory" data-group="primary" data-tab="inventory">
+      <div class="inventory-controls">
+        <button type="button" data-action="add-item">
+          <i class="fas fa-plus"></i> {{localize "empire-long-hu.merchant.addItem"}}
+        </button>
+        <button type="button" data-action="import-items">
+          <i class="fas fa-file-import"></i> {{localize "empire-long-hu.merchant.importItems"}}
+        </button>
+      </div>
+      <div class="inventory-list">
+        <div class="inventory-header flexrow">
+          <div class="item-name">{{localize "empire-long-hu.merchant.itemName"}}</div>
+          <div class="item-price">{{localize "empire-long-hu.merchant.itemPrice"}}</div>
+          <div class="item-quantity">{{localize "empire-long-hu.merchant.itemQuantity"}}</div>
+          <div class="item-controls">{{localize "empire-long-hu.merchant.controls"}}</div>
+        </div>
+        {{#each system.inventory as |item i|}}
+        <div class="inventory-item flexrow" data-item-id="{{item.id}}">
+          <div class="item-name">
+            <img src="{{item.img}}" title="{{item.name}}" width="24" height="24" />
+            <span>{{item.name}}</span>
+          </div>
+          <div class="item-price">
+            <input type="text" name="system.inventory.{{i}}.price" value="{{item.price}}" data-dtype="Number" />
+          </div>
+          <div class="item-quantity">
+            <input type="text" name="system.inventory.{{i}}.quantity" value="{{item.quantity}}" data-dtype="Number" />
+          </div>
+          <div class="item-controls">
+            <a class="item-control" data-action="edit" title="{{localize 'Edit'}}"><i class="fas fa-edit"></i></a>
+            <a class="item-control" data-action="delete" title="{{localize 'Delete'}}"><i class="fas fa-trash"></i></a>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+</form>

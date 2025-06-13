@@ -1,0 +1,135 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+  <header class="sheet-header">
+    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+    <div class="header-fields">
+      <h1 class="charname">
+        <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'Name'}}" />
+      </h1>
+      <div class="resource-group">
+        <div class="resource supplies">
+          <label>{{localize "empire-long-hu.regiment.resources.supplies"}}</label>
+          <div class="resource-content flexrow flex-center flex-between">
+            <input type="text" name="system.resources.supplies.value" value="{{system.resources.supplies.value}}" data-dtype="Number" />
+            <span class="sep">/</span>
+            <input type="text" name="system.resources.supplies.max" value="{{system.resources.supplies.max}}" data-dtype="Number" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="organization">{{localize "empire-long-hu.regiment.organization"}}</a>
+    <a class="item" data-tab="actions">{{localize "empire-long-hu.regiment.actions"}}</a>
+    <a class="item" data-tab="resources">{{localize "empire-long-hu.regiment.resources"}}</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+    {{!-- Organization Tab --}}
+    <div class="tab organization" data-group="primary" data-tab="organization">
+      <div class="slots-container">
+        <h3>{{localize "empire-long-hu.regiment.slots"}}</h3>
+        <div class="slots-list">
+          {{#each system.organization.slots as |slot id|}}
+          <div class="regiment-slot" data-slot-id="{{id}}">
+            <div class="slot-header">
+              <input type="text" name="system.organization.slots.{{id}}.name" value="{{slot.name}}" />
+              <a class="slot-control" data-action="delete" title="{{localize 'Delete'}}"><i class="fas fa-trash"></i></a>
+            </div>
+            <div class="slot-members">
+              {{#each slot.members as |member i|}}
+              <div class="slot-member" data-member-id="{{member.id}}">
+                <img src="{{member.img}}" title="{{member.name}}" />
+                <span>{{member.name}}</span>
+                <a class="member-control" data-action="remove" title="{{localize 'Remove'}}"><i class="fas fa-times"></i></a>
+              </div>
+              {{/each}}
+              <div class="slot-drop-zone" data-slot-id="{{id}}">
+                <i class="fas fa-plus"></i> {{localize "empire-long-hu.regiment.dropActorHere"}}
+              </div>
+            </div>
+          </div>
+          {{/each}}
+          <div class="regiment-slot-add">
+            <button type="button" data-action="add-slot">
+              <i class="fas fa-plus"></i> {{localize "empire-long-hu.regiment.addSlot"}}
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="hierarchy-container">
+        <h3>{{localize "empire-long-hu.regiment.hierarchy"}}</h3>
+        <div class="parent-regiment">
+          {{#if system.parent}}
+          <div class="parent-link">
+            <img src="{{parentRegiment.img}}" title="{{parentRegiment.name}}" />
+            <span>{{parentRegiment.name}}</span>
+          </div>
+          {{else}}
+          <div class="parent-drop-zone">
+            <i class="fas fa-arrow-up"></i> {{localize "empire-long-hu.regiment.dropParentHere"}}
+          </div>
+          {{/if}}
+        </div>
+        
+        <div class="children-regiments">
+          <h4>{{localize "empire-long-hu.regiment.subunits"}}</h4>
+          {{#each childrenRegiments as |child i|}}
+          <div class="child-link" data-child-id="{{child.id}}">
+            <img src="{{child.img}}" title="{{child.name}}" />
+            <span>{{child.name}}</span>
+            <a class="child-control" data-action="remove" title="{{localize 'Remove'}}"><i class="fas fa-times"></i></a>
+          </div>
+          {{/each}}
+          <div class="child-drop-zone">
+            <i class="fas fa-arrow-down"></i> {{localize "empire-long-hu.regiment.dropChildHere"}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {{!-- Actions Tab --}}
+    <div class="tab actions" data-group="primary" data-tab="actions">
+      <div class="actions-list">
+        {{#each system.organization.slots as |slot id|}}
+        <div class="slot-actions" data-slot-id="{{id}}">
+          <h3>{{slot.name}}</h3>
+          <div class="action-items">
+            {{#each slot.actions as |action i|}}
+            <div class="action-item" data-action-id="{{i}}">
+              <h4>{{action.name}}</h4>
+              <div class="action-description">
+                {{{action.description}}}
+              </div>
+              <div class="action-controls">
+                <button type="button" data-action="use-action" data-slot-id="{{id}}" data-action-id="{{i}}">
+                  {{localize "empire-long-hu.regiment.useAction"}}
+                </button>
+              </div>
+            </div>
+            {{/each}}
+          </div>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+
+    {{!-- Resources Tab --}}
+    <div class="tab resources" data-group="primary" data-tab="resources">
+      <div class="resources-list">
+        <h3>{{localize "empire-long-hu.regiment.aggregatedResources"}}</h3>
+        <div class="aggregated-resources">
+          {{!-- Aggregated resources will be displayed here --}}
+        </div>
+        
+        <h3>{{localize "empire-long-hu.regiment.resourceFormulas"}}</h3>
+        <div class="resource-formulas">
+          {{!-- Resource formulas will be displayed here --}}
+        </div>
+      </div>
+    </div>
+  </section>
+</form>

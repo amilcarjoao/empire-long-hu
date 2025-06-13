@@ -9,17 +9,60 @@
       "sagesse": "Sagesse",
       "charisme": "Charisme"
     },
-    "personnage": {
-      "sante": "Santé",
-      "endurance": "Endurance",
-      "niveau": "Niveau",
-      "experience": "Expérience"
+    "actors": {
+      "character": "Personnage",
+      "vehicle": "Véhicule",
+      "merchant": "Marchand",
+      "regiment": "Régiment"
     },
     "items": {
-      "arme": "Arme",
-      "armure": "Armure",
-      "objet": "Objet",
-      "competence": "Compétence"
+      "weapon": "Arme",
+      "armor": "Armure",
+      "equipment": "Équipement",
+      "class": "Classe",
+      "background": "Historique",
+      "learning": "Apprentissage",
+      "technique": "Technique",
+      "object": "Objet"
+    },
+    "elements": {
+      "metal": "Métal",
+      "eau": "Eau",
+      "terre": "Terre",
+      "bois": "Bois",
+      "feu": "Feu"
+    },
+    "speeds": {
+      "walk": "Marche",
+      "swim": "Nage",
+      "climb": "Escalade",
+      "fly": "Vol",
+      "burrow": "Fouissement"
+    },
+    "resources": {
+      "chi": {
+        "corporel": "Chi corporel",
+        "spirituel": "Chi spirituel"
+      },
+      "souffle": "Souffle de vie"
+    },
+    "character": {
+      "health": "Santé",
+      "endurance": "Endurance",
+      "level": "Niveau",
+      "experience": "Expérience",
+      "class": "Classe",
+      "voix": {
+        "esprit": "Esprit Saint",
+        "corps": "Corps Saint"
+      },
+      "talents": "Talents"
+    },
+    "regiment": {
+      "organization": "Organisation",
+      "actions": "Actions",
+      "resources": "Ressources",
+      "slots": "Emplacements"
     }
   }
 }

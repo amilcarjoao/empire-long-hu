@@ -1,0 +1,201 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+  <header class="sheet-header">
+    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+    <div class="header-fields">
+      <h1 class="charname">
+        <input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'Name'}}" />
+      </h1>
+      {{#if isPhysical}}
+      <div class="resource-group">
+        <div class="resource quantity">
+          <label>{{localize "empire-long-hu.item.quantity"}}</label>
+          <input type="text" name="system.quantity" value="{{system.quantity}}" data-dtype="Number" />
+        </div>
+        <div class="resource weight">
+          <label>{{localize "empire-long-hu.item.weight"}}</label>
+          <input type="text" name="system.weight" value="{{system.weight}}" data-dtype="Number" />
+        </div>
+        <div class="resource price">
+          <label>{{localize "empire-long-hu.item.price"}}</label>
+          <input type="text" name="system.price" value="{{system.price}}" data-dtype="Number" />
+        </div>
+      </div>
+      {{/if}}
+    </div>
+  </header>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="description">{{localize "empire-long-hu.tabs.description"}}</a>
+    {{#if isWeapon}}
+    <a class="item" data-tab="weapon">{{localize "empire-long-hu.tabs.weapon"}}</a>
+    {{/if}}
+    {{#if isArmor}}
+    <a class="item" data-tab="armor">{{localize "empire-long-hu.tabs.armor"}}</a>
+    {{/if}}
+    {{#if isTechnique}}
+    <a class="item" data-tab="technique">{{localize "empire-long-hu.tabs.technique"}}</a>
+    {{/if}}
+    {{#if isClass}}
+    <a class="item" data-tab="class">{{localize "empire-long-hu.tabs.class"}}</a>
+    {{/if}}
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+    {{!-- Description Tab --}}
+    <div class="tab description" data-group="primary" data-tab="description">
+      {{editor descriptionHTML target="system.description.value" button=true editable=editable engine="prosemirror"}}
+    </div>
+
+    {{!-- Weapon Tab --}}
+    {{#if isWeapon}}
+    <div class="tab weapon" data-group="primary" data-tab="weapon">
+      <div class="form-group">
+        <label>{{localize "empire-long-hu.weapon.quality"}}</label>
+        <input type="text" name="system.quality" value="{{system.quality}}" />
+      </div>
+      <div class="form-group">
+        <label>{{localize "empire-long-hu.weapon.element"}}</label>
+        <select name="system.element">
+          {{#select system.element}}
+          <option value="">{{localize "empire-long-hu.weapon.noElement"}}</option>
+          <option value="metal">{{localize "empire-long-hu.elements.metal"}}</option>
+          <option value="eau">{{localize "empire-long-hu.elements.eau"}}</option>
+          <option value="terre">{{localize "empire-long-hu.elements.terre"}}</option>
+          <option value="bois">{{localize "empire-long-hu.elements.bois"}}</option>
+          <option value="feu">{{localize "empire-long-hu.elements.feu"}}</option>
+          {{/select}}
+        </select>
+      </div>
+      <div class="form-group">
+        <label>{{localize "empire-long-hu.weapon.bonus"}}</label>
+        <input type="text" name="system.bonus" value="{{system.bonus}}" data-dtype="Number" />
+      </div>
+      <div class="form-group">
+        <label>{{localize "empire-long-hu.weapon.durability"}}</label>
+        <div class="resource-content flexrow flex-center flex-between">
+          <input type="text" name="system.durability.value" value="{{system.durability.value}}" data-dtype="Number" />
+          <span class="sep">/</span>
+          <input type="text" name="system.durability.max" value="{{system.durability.max}}" data-dtype="Number" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>{{localize "empire-long-hu.weapon.damage.formula"}}</label>
+        <input type="text" name="system.damage.formula" value="{{system.damage.formula}}" />
+      </div>
+      <div class="form-group">
+        <label>{{localize "empire-long-hu.weapon.damage.type"}}</label>
+        <select name="system.damage.type">
+          {{#select system.damage.type}}
+          <option value="physical">{{localize "empire-long-hu.damage.physical"}}</option>
+          <option value="elemental">{{localize "empire-long-hu.damage.elemental"}}</option>
+          <option value="spiritual">{{localize "empire-long-hu.damage.spiritual"}}</option>
+          {{/select}}
+        </select>
+      </div>
+      <div class="form-group">
+        <label>{{localize "empire-long-hu.weapon.defense"}}</label>
+        <input type="text" name="system.defense" value="{{system.defense}}" data-dtype="Number" />
+      </div>
+      <div class="form-group">
+        <label>{{localize "empire-long-hu.weapon.dodge"}}</label>
+        <input type="text" name="system.dodge" value="{{system.dodge}}" data-dtype="Number" />
+      </div>
+    </div>
+    {{/if}}
+
+    {{!-- Armor Tab --}}
+    {{#if isArmor}}
+    <div class="tab armor" data-group="primary" data-tab="armor">
+      <div class="form-group">
+        <label>{{localize "empire-long-hu.armor.level"}}</label>
+        <input type="text" name="system.level" value="{{system.level}}" data-dtype="Number" />
+      </div>
+      <div class="form-group">
+        <label>{{localize "empire-long-hu.armor.type"}}</label>
+        <input type="text" name="system.type" value="{{system.type}}" />
+      </div>
+      <div class="form-group">
+        <label>{{localize "empire-long-hu.armor.condition"}}</label>
+        <input type="text" name="system.condition" value="{{system.condition}}" data-dtype="Number" />
+      </div>
+      <div class="form-group">
+        <label>{{localize "empire-long-hu.armor.defense"}}</label>
+        <input type="text" name="system.defense" value="{{system.defense}}" data-dtype="Number" />
+      </div>
+      <div class="form-group">
+        <label>{{localize "empire-long-hu.armor.resistances"}}</label>
+        <div class="resistances-list">
+          {{#each system.resistances as |value type|}}
+          <div class="resistance-item">
+            <label>{{localize (concat "empire-long-hu.elements." type)}}</label>
+            <input type="text" name="system.resistances.{{type}}" value="{{value}}" data-dtype="Number" />
+          </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+    {{/if}}
+
+    {{!-- Technique Tab --}}
+    {{#if isTechnique}}
+    <div class="tab technique" data-group="primary" data-tab="technique">
+      <div class="form-group">
+        <label>{{localize "empire-long-hu.technique.level"}}</label>
+        <input type="text" name="system.level" value="{{system.level}}" data-dtype="Number" />
+      </div>
+      <div class="form-group">
+        <label>{{localize "empire-long-hu.technique.element"}}</label>
+        <select name="system.element">
+          {{#select system.element}}
+          <option value="">{{localize "empire-long-hu.technique.noElement"}}</option>
+          <option value="metal">{{localize "empire-long-hu.elements.metal"}}</option>
+          <option value="eau">{{localize "empire-long-hu.elements.eau"}}</option>
+          <option value="terre">{{localize "empire-long-hu.elements.terre"}}</option>
+          <option value="bois">{{localize "empire-long-hu.elements.bois"}}</option>
+          <option value="feu">{{localize "empire-long-hu.elements.feu"}}</option>
+          {{/select}}
+        </select>
+      </div>
+      <div class="form-group">
+        <label>{{localize "empire-long-hu.technique.cost.chi"}}</label>
+        <input type="text" name="system.cost.chi" value="{{system.cost.chi}}" data-dtype="Number" />
+      </div>
+      <div class="form-group">
+        <label>{{localize "empire-long-hu.technique.cost.souffle"}}</label>
+        <input type="text" name="system.cost.souffle" value="{{system.cost.souffle}}" data-dtype="Number" />
+      </div>
+    </div>
+    {{/if}}
+
+    {{!-- Class Tab --}}
+    {{#if isClass}}
+    <div class="tab class" data-group="primary" data-tab="class">
+      <div class="form-group">
+        <label>{{localize "empire-long-hu.class.level"}}</label>
+        <input type="text" name="system.level" value="{{system.level}}" data-dtype="Number" />
+      </div>
+      <div class="abilities-list">
+        <h3>{{localize "empire-long-hu.class.abilities"}}</h3>
+        {{#each system.abilities as |ability i|}}
+        <div class="ability-item" data-ability-id="{{i}}">
+          <div class="ability-header">
+            <input type="text" name="system.abilities.{{i}}.name" value="{{ability.name}}" />
+            <a class="ability-control" data-action="delete" title="{{localize 'Delete'}}"><i class="fas fa-trash"></i></a>
+          </div>
+          <div class="ability-description">
+            <textarea name="system.abilities.{{i}}.description">{{ability.description}}</textarea>
+          </div>
+        </div>
+        {{/each}}
+        <div class="ability-add">
+          <button type="button" data-action="add-ability">
+            <i class="fas fa-plus"></i> {{localize "empire-long-hu.class.addAbility"}}
+          </button>
+        </div>
+      </div>
+    </div>
+    {{/if}}
+  </section>
+</form>
