@@ -200,7 +200,7 @@
   border: 1px solid #cccccc;
   border-radius: 3px;
   padding: 3px;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgb(255, 255, 255);
 }
 
 .empire-long-hu.regiment .slot-member img {
@@ -215,7 +215,7 @@
   padding: 10px;
   text-align: center;
   margin-top: 5px;
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgb(255, 255, 255);
 }
 
 .empire-long-hu.regiment .hierarchy-container {
@@ -229,7 +229,7 @@
   padding: 10px;
   text-align: center;
   margin-top: 5px;
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255);
 }
 
 .empire-long-hu.regiment .parent-link,
@@ -240,7 +240,7 @@
   border-radius: 3px;
   padding: 5px;
   margin-bottom: 5px;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255);
 }
 
 .empire-long-hu.regiment .parent-link img,
