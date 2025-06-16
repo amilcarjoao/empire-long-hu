@@ -24,6 +24,29 @@
 } */
 
 /* Feuille de personnage */
+.empire-long-hu.character form {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  overflow: hidden;
+}
+
+.empire-long-hu.character .sidebar-left {
+  flex: 0 0 200px;
+  margin-right: 10px;
+  height: 100%;
+  position: sticky;
+  top: 0;
+}
+
+.empire-long-hu.character .content-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  height: 100%;
+}
+
 .empire-long-hu.character .sheet-header {
   display: flex;
   flex-direction: row;
@@ -31,15 +54,16 @@
   border-bottom: 2px solid #7a7971;
 }
 
-.empire-long-hu.character .header-left {
-  flex: 0 0 200px;
-  display: flex;
-  flex-direction: column;
-  margin-right: 10px;
+.empire-long-hu.character .header-fields {
+  flex: 1;
 }
 
-.empire-long-hu.character .header-right {
-  flex: 1;
+.empire-long-hu.character .avatar-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: sticky;
+  top: 0;
 }
 
 .empire-long-hu.character .profile-img {
@@ -257,6 +281,7 @@
 
 .empire-long-hu .sheet-body {
   overflow-y: auto;
+  flex: 1;
 }
 
 .empire-long-hu .tab {
@@ -319,14 +344,16 @@
 
 /* Responsive */
 @media (max-width: 600px) {
-  .empire-long-hu.character .sheet-header {
+  .empire-long-hu.character form {
     flex-direction: column;
+    overflow: auto;
   }
   
-  .empire-long-hu.character .header-left {
+  .empire-long-hu.character .sidebar-left {
     flex: 0 0 auto;
     margin-right: 0;
     margin-bottom: 10px;
+    position: relative;
   }
   
   .empire-long-hu.character .resource-group,

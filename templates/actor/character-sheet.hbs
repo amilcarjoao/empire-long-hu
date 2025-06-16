@@ -1,6 +1,6 @@
-<form class="{{cssClass}} flexcol" autocomplete="off">
-  <header class="sheet-header">
-    <div class="header-left">
+<form class="{{cssClass}} flexrow" autocomplete="off">
+  <div class="sidebar-left">
+    <div class="avatar-container">
       <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
       <div class="speeds">
         <div class="speed walk" title="{{localize 'empire-long-hu.speeds.walk'}}">
@@ -20,7 +20,9 @@
         </div>
       </div>
     </div>
-    <div class="header-right">
+  </div>
+  <div class="content-right flexcol">
+    <header class="sheet-header">
       <div class="header-fields">
         <h1 class="charname">
           <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'Name'}}" />
@@ -94,75 +96,74 @@
           </div>
         </div>
       </div>
-    </div>
-  </header>
+    </header>
+    {{!-- Sheet Tab Navigation --}}
+    <nav class="sheet-tabs tabs" data-group="primary">
+      <a class="item" data-tab="talents">{{localize "empire-long-hu.character.talents"}}</a>
+      <a class="item" data-tab="equipment">{{localize "empire-long-hu.tabs.equipment"}}</a>
+      <a class="item" data-tab="objects">{{localize "empire-long-hu.tabs.objects"}}</a>
+      <a class="item" data-tab="learning">{{localize "empire-long-hu.tabs.learning"}}</a>
+      <a class="item" data-tab="biography">{{localize "empire-long-hu.tabs.biography"}}</a>
+      <a class="item" data-tab="magic">{{localize "empire-long-hu.tabs.magic"}}</a>
+      <a class="item" data-tab="techniques">{{localize "empire-long-hu.tabs.techniques"}}</a>
+      <a class="item" data-tab="effects">{{localize "empire-long-hu.tabs.effects"}}</a>
+    </nav>
 
-  {{!-- Sheet Tab Navigation --}}
-  <nav class="sheet-tabs tabs" data-group="primary">
-    <a class="item" data-tab="talents">{{localize "empire-long-hu.character.talents"}}</a>
-    <a class="item" data-tab="equipment">{{localize "empire-long-hu.tabs.equipment"}}</a>
-    <a class="item" data-tab="objects">{{localize "empire-long-hu.tabs.objects"}}</a>
-    <a class="item" data-tab="learning">{{localize "empire-long-hu.tabs.learning"}}</a>
-    <a class="item" data-tab="biography">{{localize "empire-long-hu.tabs.biography"}}</a>
-    <a class="item" data-tab="magic">{{localize "empire-long-hu.tabs.magic"}}</a>
-    <a class="item" data-tab="techniques">{{localize "empire-long-hu.tabs.techniques"}}</a>
-    <a class="item" data-tab="effects">{{localize "empire-long-hu.tabs.effects"}}</a>
-  </nav>
-
-  {{!-- Sheet Body --}}
-  <section class="sheet-body">
-    {{!-- Talents Tab --}}
-    <div class="tab talents" data-group="primary" data-tab="talents">
-      <div class="talents-list">
-        {{!-- Talents will be listed here --}}
+    {{!-- Sheet Body --}}
+    <section class="sheet-body">
+      {{!-- Talents Tab --}}
+      <div class="tab talents" data-group="primary" data-tab="talents">
+        <div class="talents-list">
+          {{!-- Talents will be listed here --}}
+        </div>
       </div>
-    </div>
 
-    {{!-- Equipment Tab --}}
-    <div class="tab equipment" data-group="primary" data-tab="equipment">
-      <div class="items-list">
-        {{!-- Equipment will be listed here --}}
+      {{!-- Equipment Tab --}}
+      <div class="tab equipment" data-group="primary" data-tab="equipment">
+        <div class="items-list">
+          {{!-- Equipment will be listed here --}}
+        </div>
       </div>
-    </div>
 
-    {{!-- Objects Tab --}}
-    <div class="tab objects" data-group="primary" data-tab="objects">
-      <div class="items-list">
-        {{!-- Objects will be listed here --}}
+      {{!-- Objects Tab --}}
+      <div class="tab objects" data-group="primary" data-tab="objects">
+        <div class="items-list">
+          {{!-- Objects will be listed here --}}
+        </div>
       </div>
-    </div>
 
-    {{!-- Learning Tab --}}
-    <div class="tab learning" data-group="primary" data-tab="learning">
-      <div class="items-list">
-        {{!-- Learning items will be listed here --}}
+      {{!-- Learning Tab --}}
+      <div class="tab learning" data-group="primary" data-tab="learning">
+        <div class="items-list">
+          {{!-- Learning items will be listed here --}}
+        </div>
       </div>
-    </div>
 
-    {{!-- Biography Tab --}}
-    <div class="tab biography" data-group="primary" data-tab="biography">
-      {{editor biographyHTML target="system.biography.value" button=true editable=editable engine="prosemirror"}}
-    </div>
-
-    {{!-- Magic Tab --}}
-    <div class="tab magic" data-group="primary" data-tab="magic">
-      <div class="items-list">
-        {{!-- Magic items will be listed here --}}
+      {{!-- Biography Tab --}}
+      <div class="tab biography" data-group="primary" data-tab="biography">
+        {{editor biographyHTML target="system.biography.value" button=true editable=editable engine="prosemirror"}}
       </div>
-    </div>
 
-    {{!-- Techniques Tab --}}
-    <div class="tab techniques" data-group="primary" data-tab="techniques">
-      <div class="items-list">
-        {{!-- Techniques will be listed here --}}
+      {{!-- Magic Tab --}}
+      <div class="tab magic" data-group="primary" data-tab="magic">
+        <div class="items-list">
+          {{!-- Magic items will be listed here --}}
+        </div>
       </div>
-    </div>
 
-    {{!-- Effects Tab --}}
-    <div class="tab effects" data-group="primary" data-tab="effects">
-      <div class="effects-list">
-        {{!-- Effects will be listed here --}}
+      {{!-- Techniques Tab --}}
+      <div class="tab techniques" data-group="primary" data-tab="techniques">
+        <div class="items-list">
+          {{!-- Techniques will be listed here --}}
+        </div>
       </div>
-    </div>
-  </section>
+
+      {{!-- Effects Tab --}}
+      <div class="tab effects" data-group="primary" data-tab="effects">
+        <div class="effects-list">
+          {{!-- Effects will be listed here --}}
+        </div>
+      </div>
+    </section>
+  </div>
 </form>
