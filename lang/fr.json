@@ -1,6 +1,10 @@
 {
   "empire-long-hu": {
     "nom": "L'Empire de la Long-Hu",
+    "version": {
+      "v13": "Version 13",
+      "compatible": "Compatible avec Foundry VTT v13"
+    },
     "attributs": {
       "force": "Force",
       "dexterite": "Dextérité",

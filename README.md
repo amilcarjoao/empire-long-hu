@@ -4,6 +4,30 @@ Ce système est conçu pour le jeu de rôle maison "L'Empire de la Long-Hu" sur 
 
 ## Modifications récentes
 
+### Mise à jour pour Foundry VTT v13 (v0.2.0)
+
+- **Compatibilité exclusive avec Foundry VTT v13** :
+  - Mise à jour des API pour utiliser les nouvelles méthodes de v13
+  - Utilisation de DocumentSheetConfig au lieu de Actors/Items.registerSheet
+  - Mise à jour de SystemDataModel pour hériter de TypeDataModel
+
+- **Améliorations techniques** :
+  - Optimisation des performances
+  - Correction de bugs mineurs
+  - Préparation pour les futures fonctionnalités
+
+### Modernisation du système (v0.1.0)
+
+- **Adoption d'une approche moderne sans template.json** :
+  - Utilisation de dataModels pour définir la structure des données
+  - Compatibilité améliorée avec Foundry VTT v12 et v13
+  - Structure plus maintenable et extensible
+
+- **Refonte de l'architecture** :
+  - Création de modèles de données pour les acteurs et objets
+  - Organisation en modules pour une meilleure séparation des responsabilités
+  - Utilisation des fonctionnalités avancées de Foundry VTT
+
 ### Structure du système (v0.0.6)
 
 - **Refonte complète des types d'acteurs** :

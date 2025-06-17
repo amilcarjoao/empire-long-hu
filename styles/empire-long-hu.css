@@ -29,6 +29,8 @@
   flex-direction: row;
   height: 100%;
   overflow: hidden;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .empire-long-hu.character .sidebar-left {
@@ -40,11 +42,12 @@
 }
 
 .empire-long-hu.character .content-right {
-  flex: 1;
+  flex: 0 0 calc(100% - 220px);
   display: flex;
   flex-direction: column;
   overflow-y: auto;
   height: 100%;
+  max-width: 800px;
 }
 
 .empire-long-hu.character .sheet-header {
@@ -52,6 +55,8 @@
   flex-direction: row;
   margin-bottom: 10px;
   border-bottom: 2px solid #7a7971;
+  padding-bottom: 10px;
+  position: relative;
 }
 
 .empire-long-hu.character .header-fields {
@@ -119,6 +124,7 @@
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 10px;
+  flex-wrap: wrap;
 }
 
 .empire-long-hu.character .resource {
@@ -130,6 +136,63 @@
   font-weight: bold;
   margin-bottom: 3px;
   display: block;
+}
+
+.empire-long-hu.character .level-input {
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
+  flex: 1;
+}
+
+.empire-long-hu.character .level-input label {
+  margin-right: 5px;
+  margin-bottom: 5px;
+  display: block;
+  font-weight: bold;
+}
+
+.empire-long-hu.character .resource.level {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.empire-long-hu.character .level-label,
+.empire-long-hu.character .rank-label {
+  font-weight: bold;
+}
+
+.empire-long-hu.character .level-value {
+  width: 40px;
+  height: 30px;
+  background: #8b4513;
+  color: white;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  text-align: center;
+  border: 2px solid #f0d0b0;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  margin-right: 15px;
+}
+
+.empire-long-hu.character .rank-name {
+  font-weight: bold;
+  color: #8b4513;
+  margin-right: 5px;
+}
+
+.empire-long-hu.character .rank-range {
+  font-size: 0.9em;
+  color: #666;
+}
+
+.empire-long-hu.character .small-input {
+  width: 40px;
+  text-align: center;
 }
 
 .empire-long-hu.character .resource-content {
@@ -151,6 +214,8 @@
   flex-direction: row;
   justify-content: space-between;
   margin-top: 10px;
+  flex-wrap: wrap;
+  gap: 5px;
 }
 
 .empire-long-hu.character .element {
@@ -277,6 +342,10 @@
 .empire-long-hu .sheet-tabs {
   flex: 0;
   margin-bottom: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 5px;
 }
 
 .empire-long-hu .sheet-body {
@@ -343,10 +412,11 @@
 }
 
 /* Responsive */
-@media (max-width: 600px) {
+@media (max-width: 900px) {
   .empire-long-hu.character form {
     flex-direction: column;
     overflow: auto;
+    max-width: 100%;
   }
   
   .empire-long-hu.character .sidebar-left {
@@ -354,6 +424,14 @@
     margin-right: 0;
     margin-bottom: 10px;
     position: relative;
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .empire-long-hu.character .content-right {
+    flex: 1;
+    max-width: 100%;
+    width: 100%;
   }
   
   .empire-long-hu.character .resource-group,
@@ -366,4 +444,236 @@
     flex: 1 0 45%;
     margin-bottom: 5px;
   }
+  
+  .empire-long-hu.character .talents-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .empire-long-hu.character .resource,
+  .empire-long-hu.character .element {
+    flex: 1 0 100%;
+  }
+  
+  .empire-long-hu.character .talents-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+  }
+}
+
+/* Mode Controls */
+.empire-long-hu.character .mode-controls {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 10;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+
+.empire-long-hu.character .mode-toggle {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.empire-long-hu.character .toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.empire-long-hu.character .toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.empire-long-hu.character .toggle-slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  border-radius: 24px;
+  transition: .4s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.empire-long-hu.character .toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  border-radius: 50%;
+  transition: .4s;
+  z-index: 1;
+}
+
+.empire-long-hu.character .toggle-switch input:checked + .toggle-slider {
+  background-color: #8b4513;
+}
+
+.empire-long-hu.character .toggle-switch input:checked + .toggle-slider:before {
+  transform: translateX(16px);
+}
+
+.empire-long-hu.character .toggle-slider i {
+  color: #555;
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.empire-long-hu.character .toggle-switch input:checked + .toggle-slider i {
+  color: #f0d0b0;
+}
+
+/* Mode spécifique */
+.empire-long-hu.character.play-mode .level-value-display {
+  width: 40px;
+  height: 30px;
+  background: #8b4513;
+  color: white;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  text-align: center;
+  border: 2px solid #f0d0b0;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  margin-right: 15px;
+}
+
+/* Styles pour les champs en mode jeu */
+.empire-long-hu.character.play-mode input:not([type="checkbox"]) {
+  border-color: transparent;
+  background-color: transparent;
+  pointer-events: none;
+}
+
+.empire-long-hu.character.play-mode .sheet-header .mode-toggle input {
+  pointer-events: auto;
+}
+
+.empire-long-hu.character.edit-mode .editable-field {
+  border: 1px solid #8b4513;
+  background-color: rgba(240, 208, 176, 0.1);
+}
+
+/* Styles pour les affichages en mode lecture */
+.empire-long-hu.character .name-display,
+.empire-long-hu.character .class-display,
+.empire-long-hu.character .voix-display {
+  padding: 5px;
+  min-height: 24px;
+  display: inline-block;
+}
+
+/* Bouton de sauvegarde */
+.empire-long-hu.character .save-button {
+  background-color: #8b4513;
+  color: #f0d0b0;
+  border: 1px solid #f0d0b0;
+  border-radius: 4px;
+  padding: 3px 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s;
+  font-size: 0.9em;
+}
+
+.empire-long-hu.character .save-button:hover {
+  background-color: #a05a2c;
+  box-shadow: 0 0 5px rgba(240, 208, 176, 0.5);
+}
+
+/* Styles pour les talents */
+.empire-long-hu.character .talents-header {
+  font-weight: bold;
+  border-bottom: 2px solid #8b4513;
+  margin-bottom: 5px;
+  padding: 5px 0;
+}
+
+.empire-long-hu.character .talent-item {
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  align-items: center;
+  background-color: rgba(240, 208, 176, 0.1);
+}
+
+.empire-long-hu.character .talent-name {
+  flex: 2;
+  padding-left: 5px;
+}
+
+.empire-long-hu.character .talent-value {
+  flex: 1;
+  text-align: center;
+}
+
+.empire-long-hu.character .talent-total {
+  flex: 1;
+  text-align: center;
+  font-weight: bold;
+  color: #8b4513;
+}
+
+.empire-long-hu.character .talent-value input.small-input {
+  width: 40px;
+  text-align: center;
+}
+
+.empire-long-hu.character .talent-value-display {
+  display: inline-block;
+  width: 40px;
+  text-align: center;
+}
+
+/* Styles pour l'en-tête des talents */
+.empire-long-hu.character .talents-header {
+  position: sticky;
+  top: 0;
+  background-color: #f0f0e0;
+  z-index: 10;
+  padding: 5px 0;
+  margin-bottom: 10px;
+}
+
+/* Grille de talents */
+.empire-long-hu.character .talents-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.empire-long-hu.character .talents-grid .talent-item {
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  padding: 5px;
+  background-color: rgba(240, 208, 176, 0.1);
+}
+
+.empire-long-hu.character .talents-grid .talent-name {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #8b4513;
+}
+
+.empire-long-hu.character .talents-grid .talent-value,
+.empire-long-hu.character .talents-grid .talent-total {
+  display: inline-block;
+  margin: 0 5px;
 }

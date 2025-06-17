@@ -1,4 +1,4 @@
-<form class="{{cssClass}} flexrow" autocomplete="off">
+<form class="{{cssClass}} flexrow {{#if editMode}}edit-mode{{else}}play-mode{{/if}}" autocomplete="off">
   <div class="sidebar-left">
     <div class="avatar-container">
       <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
@@ -23,28 +23,61 @@
   </div>
   <div class="content-right flexcol">
     <header class="sheet-header">
+      <div class="mode-controls">
+        <div class="mode-toggle">
+          <label class="toggle-switch" title="Mode édition">
+            <input type="checkbox" name="flags.empire-long-hu.editMode" data-dtype="Boolean" {{checked editMode}}>
+            <span class="toggle-slider"><i class="fas fa-key"></i></span>
+          </label>
+        </div>
+        {{#if editMode}}
+        <button type="submit" class="save-button"><i class="fas fa-save"></i> Sauvegarder</button>
+        {{/if}}
+      </div>
       <div class="header-fields">
         <h1 class="charname">
+          {{#if editMode}}
           <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'Name'}}" />
+          {{else}}
+          <span class="name-display">{{actor.name}}</span>
+          {{/if}}
         </h1>
         <div class="resource-group">
-          <div class="resource level">
-            <label>{{localize "empire-long-hu.character.level"}}</label>
-            <input type="text" name="system.level" value="{{system.level}}" data-dtype="Number" />
+          <div class="resource level flexrow">
+            <span class="level-label">Niveau</span>
+            {{#if editMode}}
+            <input type="text" name="system.level" value="{{#if system.level}}{{system.level}}{{else}}1{{/if}}" data-dtype="Number" class="level-value" min="1" />
+            {{else}}
+            <span class="level-value-display">{{#if system.level}}{{system.level}}{{else}}1{{/if}}</span>
+            {{/if}}
+            <span class="rank-label">Rang : </span>
+            <span class="rank-name">{{#if system.rank}}{{system.rank}}{{else}}{{#if system.level}}{{getRankName system.level}}{{else}}Rustique{{/if}}{{/if}}</span>
           </div>
           <div class="resource class">
             <label>{{localize "empire-long-hu.character.class"}}</label>
+            {{#if editMode}}
             <input type="text" name="system.class" value="{{system.class}}" />
+            {{else}}
+            <span class="class-display">{{system.class}}</span>
+            {{/if}}
           </div>
         </div>
         <div class="resource-group voix">
           <div class="resource esprit">
             <label>{{localize "empire-long-hu.character.voix.esprit"}}</label>
+            {{#if editMode}}
             <input type="text" name="system.voix.esprit" value="{{system.voix.esprit}}" />
+            {{else}}
+            <span class="voix-display">{{system.voix.esprit}}</span>
+            {{/if}}
           </div>
           <div class="resource corps">
             <label>{{localize "empire-long-hu.character.voix.corps"}}</label>
+            {{#if editMode}}
             <input type="text" name="system.voix.corps" value="{{system.voix.corps}}" />
+            {{else}}
+            <span class="voix-display">{{system.voix.corps}}</span>
+            {{/if}}
           </div>
         </div>
         <div class="resource-group chi">
@@ -113,8 +146,26 @@
     <section class="sheet-body">
       {{!-- Talents Tab --}}
       <div class="tab talents" data-group="primary" data-tab="talents">
-        <div class="talents-list">
-          {{!-- Talents will be listed here --}}
+        <div class="talents-header flexrow">
+          <div class="talent-name">Talent</div>
+          <div class="talent-value">Base</div>
+          <div class="talent-total">Total</div>
+        </div>
+        
+        <div class="talents-grid">
+          {{#each system.talents as |talent key|}}
+          <div class="talent-item flexrow" data-talent="{{key}}">
+            <div class="talent-name">{{talent.label}}</div>
+            <div class="talent-value">
+              {{#if ../editMode}}
+              <input type="text" name="system.talents.{{key}}.value" value="{{talent.value}}" data-dtype="Number" class="small-input" />
+              {{else}}
+              <span class="talent-value-display">{{talent.value}}</span>
+              {{/if}}
+            </div>
+            <div class="talent-total">{{talent.total}}</div>
+          </div>
+          {{/each}}
         </div>
       </div>
 
