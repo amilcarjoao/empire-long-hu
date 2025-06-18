@@ -180,8 +180,22 @@ class EmpireLongHuCharacterSheet extends ActorSheet {
     // Ajout des helpers pour les rangs
     context.getRankName = this._getRankName.bind(this);
     
+    // Ajout d'un helper pour comparer des chaînes
+    context.eq = (a, b) => a === b;
+    
     // Récupération du mode d'édition
     context.editMode = this.actor.getFlag("empire-long-hu", "editMode") || false;
+    
+    // S'assurer que context.system existe
+    if (!context.system) {
+      context.system = {};
+    }
+    
+    // S'assurer que le niveau est défini
+    if (!context.system.level) {
+      context.system.level = 1;
+      await this.actor.update({ "system.level": 1 });
+    }
     
     // Vérifier si le rang doit être mis à jour
     if (context.system.level && (!context.system.rank || this._getRankName(context.system.level) !== context.system.rank)) {
@@ -347,8 +361,9 @@ class EmpireLongHuCharacterSheet extends ActorSheet {
         const newRankName = this._getRankName(newLevel);
         rankName.text(newRankName);
         
-        // Stocker le rang dans les données de l'acteur
+        // Stocker le niveau et le rang dans les données de l'acteur
         await this.actor.update({
+          "system.level": newLevel,
           "system.rank": newRankName
         });
       }
@@ -368,10 +383,19 @@ class EmpireLongHuCharacterSheet extends ActorSheet {
     
     // Gestion du bouton de sauvegarde
     html.find('.save-button').on('click', async (event) => {
+      // Récupérer la valeur du niveau avant de soumettre
+      const levelValue = html.find('.level-value').val();
+      const level = parseInt(levelValue) || 1;
+      
+      // Mettre à jour le niveau et le rang dans les données de l'acteur
+      await this.actor.update({
+        "system.level": level,
+        "system.rank": this._getRankName(level)
+      });
+      
+      // Soumettre le formulaire pour enregistrer les autres modifications
       await this._onSubmit(event);
     });
-    
-    // Aucun code nécessaire pour les onglets de talents car ils ont été supprimés
   }
 }
 

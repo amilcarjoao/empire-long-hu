@@ -32,6 +32,7 @@
         </div>
         {{#if editMode}}
         <button type="submit" class="save-button"><i class="fas fa-save"></i> Sauvegarder</button>
+        <div class="auto-save-indicator"><i class="fas fa-circle-check"></i> Sauvegarde auto</div>
         {{/if}}
       </div>
       <div class="header-fields">
@@ -44,13 +45,13 @@
         </h1>
         <div class="resource-group">
           <div class="resource level flexrow">
-            <span class="level-label">Niveau</span>
+            <span class="level-label">Niveau:</span>
             {{#if editMode}}
             <input type="text" name="system.level" value="{{#if system.level}}{{system.level}}{{else}}1{{/if}}" data-dtype="Number" class="level-value" min="1" />
             {{else}}
             <span class="level-value-display">{{#if system.level}}{{system.level}}{{else}}1{{/if}}</span>
             {{/if}}
-            <span class="rank-label">Rang : </span>
+            <span class="rank-label">Rang:</span>
             <span class="rank-name">{{#if system.rank}}{{system.rank}}{{else}}{{#if system.level}}{{getRankName system.level}}{{else}}Rustique{{/if}}{{/if}}</span>
           </div>
           <div class="resource class">
@@ -66,7 +67,12 @@
           <div class="resource esprit">
             <label>{{localize "empire-long-hu.character.voix.esprit"}}</label>
             {{#if editMode}}
-            <input type="text" name="system.voix.esprit" value="{{system.voix.esprit}}" />
+            <select name="system.voix.esprit" class="voix-select">
+              <option value="" {{#unless system.voix.esprit}}selected{{/unless}}>-- Sélectionner --</option>
+              <option value="Saint-Esprit" {{#if (eq system.voix.esprit "Saint-Esprit")}}selected{{/if}}>Saint-Esprit</option>
+              <option value="Esprit Ancestral" {{#if (eq system.voix.esprit "Esprit Ancestral")}}selected{{/if}}>Esprit Ancestral</option>
+              <option value="Esprit Élémentaire" {{#if (eq system.voix.esprit "Esprit Élémentaire")}}selected{{/if}}>Esprit Élémentaire</option>
+            </select>
             {{else}}
             <span class="voix-display">{{system.voix.esprit}}</span>
             {{/if}}

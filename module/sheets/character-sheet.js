@@ -15,12 +15,28 @@ export class EmpireLongHuCharacterSheet extends ActorSheet {
   }
   
   /** @override */
-  getData() {
-    const context = super.getData();
+  async getData() {
+    const context = await super.getData();
     
     // Ajout des helpers pour les rangs
     context.getRankName = this._getRankName.bind(this);
     context.getRankRange = this._getRankRange.bind(this);
+    
+    // Récupération du mode d'édition
+    context.editMode = this.actor.getFlag("empire-long-hu", "editMode") || false;
+    
+    // S'assurer que le niveau est défini
+    if (!context.system.level) {
+      context.system.level = 1;
+      await this.actor.update({ "system.level": 1 });
+    }
+    
+    // Vérifier si le rang doit être mis à jour
+    if (context.system.level && (!context.system.rank || this._getRankName(context.system.level) !== context.system.rank)) {
+      const newRank = this._getRankName(context.system.level);
+      await this.actor.update({ "system.rank": newRank });
+      context.system.rank = newRank;
+    }
     
     return context;
   }
@@ -57,21 +73,95 @@ export class EmpireLongHuCharacterSheet extends ActorSheet {
   activateListeners(html) {
     super.activateListeners(html);
 
-    // Gestion du slider de niveau
-    const levelSlider = html.find('.level-slider');
-    const levelValue = html.find('.level-value');
-
-    // Mise à jour de l'affichage du niveau lors du déplacement du slider
-    levelSlider.on('input', (event) => {
-      const newLevel = event.target.value;
-      levelValue.text(newLevel);
+    // Tout le monde peut voir
+    
+    // Seul le propriétaire peut éditer
+    if (this.actor.isOwner) {
+      // Gestion du toggle de mode d'édition
+      html.find('.toggle-switch input[name="flags.empire-long-hu.editMode"]').on('change', async (event) => {
+        const isChecked = event.target.checked;
+        await this.actor.setFlag("empire-long-hu", "editMode", isChecked);
+        this.render(true);
+      });
       
-      // Mise à jour du nom et de la plage de rang en temps réel
-      const rankName = html.find('.rank-name');
-      const rankRange = html.find('.rank-range');
+      // Gestion du bouton de sauvegarde
+      html.find('.save-button').on('click', async (event) => {
+        event.preventDefault();
+        
+        // Récupérer les données du formulaire
+        const formData = this._getSubmitData();
+        
+        // Mettre à jour le niveau et le rang
+        if (formData.system?.level) {
+          const level = parseInt(formData.system.level);
+          const newRank = this._getRankName(level);
+          formData.system.rank = newRank;
+        }
+        
+        // Désactiver le mode édition
+        await this.actor.setFlag("empire-long-hu", "editMode", false);
+        
+        // Soumettre le formulaire avec les données mises à jour
+        await this._onSubmit(event, { updateData: formData });
+        
+        // Rafraîchir la feuille
+        this.render(true);
+      });
       
-      rankName.text(this._getRankName(newLevel));
-      rankRange.text(this._getRankRange(newLevel));
-    });
+      // Gestion du changement de niveau pour mettre à jour le rang en temps réel
+      html.find('input[name="system.level"]').on('change', (event) => {
+        const newLevel = parseInt(event.target.value);
+        if (!isNaN(newLevel)) {
+          const rankName = html.find('.rank-name');
+          rankName.text(this._getRankName(newLevel));
+        }
+      });
+      
+      // Enregistrement automatique des modifications en mode édition
+      html.find('input, select, textarea').on('change', async (event) => {
+        if (this.actor.getFlag("empire-long-hu", "editMode")) {
+          // Ne pas traiter les changements du toggle d'édition lui-même
+          if (event.target.name === "flags.empire-long-hu.editMode") return;
+          
+          // Récupérer les données du formulaire
+          const formData = this._getSubmitData();
+          
+          // Mettre à jour le niveau et le rang si nécessaire
+          if (formData.system?.level) {
+            const level = parseInt(formData.system.level);
+            const newRank = this._getRankName(level);
+            formData.system.rank = newRank;
+          }
+          
+          // Soumettre le formulaire avec les données mises à jour
+          await this._onSubmit(event, { updateData: formData });
+          
+          // Afficher l'indicateur de sauvegarde automatique
+          const indicator = html.find('.auto-save-indicator');
+          indicator.css('opacity', '1');
+          setTimeout(() => {
+            indicator.css('opacity', '0.8');
+          }, 1000);
+        }
+      });
+    }
+  }
+  
+  /** @override */
+  async _updateObject(event, formData) {
+    // Mettre à jour le rang si le niveau a changé
+    if (formData["system.level"]) {
+      const level = parseInt(formData["system.level"]);
+      const newRank = this._getRankName(level);
+      formData["system.rank"] = newRank;
+    }
+    
+    return super._updateObject(event, formData);
+  }
+  
+  /** @override */
+  async _onSubmit(event, {updateData=null, preventClose=true, preventRender=false}={}) {
+    // Permettre la soumission normale du formulaire
+    return super._onSubmit(event, {updateData, preventClose, preventRender});
   }
 }
