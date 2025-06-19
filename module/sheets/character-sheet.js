@@ -22,7 +22,7 @@ export class EmpireLongHuCharacterSheet extends ActorSheet {
     context.getRankName = this._getRankName.bind(this);
     context.getRankRange = this._getRankRange.bind(this);
     
-    // Récupération du mode d'édition
+    // Récupérer le mode d'édition actuel (ne pas forcer le mode jeu)
     context.editMode = this.actor.getFlag("empire-long-hu", "editMode") || false;
     
     // S'assurer que le niveau est défini
@@ -80,31 +80,32 @@ export class EmpireLongHuCharacterSheet extends ActorSheet {
       // Gestion du toggle de mode d'édition
       html.find('.toggle-switch input[name="flags.empire-long-hu.editMode"]').on('change', async (event) => {
         const isChecked = event.target.checked;
-        await this.actor.setFlag("empire-long-hu", "editMode", isChecked);
-        this.render(true);
-      });
-      
-      // Gestion du bouton de sauvegarde
-      html.find('.save-button').on('click', async (event) => {
-        event.preventDefault();
         
-        // Récupérer les données du formulaire
-        const formData = this._getSubmitData();
-        
-        // Mettre à jour le niveau et le rang
-        if (formData.system?.level) {
-          const level = parseInt(formData.system.level);
-          const newRank = this._getRankName(level);
-          formData.system.rank = newRank;
+        // Si on passe du mode édition au mode jeu, enregistrer toutes les modifications
+        if (!isChecked && this.actor.getFlag("empire-long-hu", "editMode")) {
+          try {
+            // Récupérer les données du formulaire
+            const formData = this._getSubmitData();
+            
+            // Convertir les valeurs numériques
+            for (const [key, value] of Object.entries(formData)) {
+              if (typeof value === "string" && !isNaN(Number(value)) && key.includes("system.")) {
+                formData[key] = Number(value);
+              }
+            }
+            
+            // Mettre à jour l'acteur avec les données du formulaire
+            await this.actor.update(formData);
+            console.log("Empire Long-Hu | Sauvegarde automatique lors du passage en mode jeu");
+            ui.notifications.info("Modifications enregistrées");
+          } catch (error) {
+            console.error("Empire Long-Hu | Erreur lors de la sauvegarde automatique:", error);
+            ui.notifications.error("Erreur lors de l'enregistrement des modifications");
+          }
         }
         
-        // Désactiver le mode édition
-        await this.actor.setFlag("empire-long-hu", "editMode", false);
-        
-        // Soumettre le formulaire avec les données mises à jour
-        await this._onSubmit(event, { updateData: formData });
-        
-        // Rafraîchir la feuille
+        // Mettre à jour le flag de mode d'édition
+        await this.actor.setFlag("empire-long-hu", "editMode", isChecked);
         this.render(true);
       });
       
@@ -123,25 +124,70 @@ export class EmpireLongHuCharacterSheet extends ActorSheet {
           // Ne pas traiter les changements du toggle d'édition lui-même
           if (event.target.name === "flags.empire-long-hu.editMode") return;
           
-          // Récupérer les données du formulaire
-          const formData = this._getSubmitData();
-          
-          // Mettre à jour le niveau et le rang si nécessaire
-          if (formData.system?.level) {
-            const level = parseInt(formData.system.level);
-            const newRank = this._getRankName(level);
-            formData.system.rank = newRank;
+          try {
+            // Récupérer la valeur modifiée
+            const field = event.target.name;
+            if (!field) return; // Ignorer les champs sans nom
+            
+            let value = event.target.type === "checkbox" ? event.target.checked : event.target.value;
+            
+            // Convertir en nombre si nécessaire
+            if (event.target.dataset.dtype === "Number") {
+              value = Number(value);
+            }
+            
+            // Créer un objet de mise à jour
+            const updateData = {};
+            updateData[field] = value;
+            
+            // Mettre à jour le rang si le niveau a changé
+            if (field === "system.level") {
+              const level = parseInt(value);
+              if (!isNaN(level)) {
+                updateData["system.rank"] = this._getRankName(level);
+              }
+            }
+            
+            // Mettre à jour directement l'acteur
+            await this.actor.update(updateData);
+            console.log(`Empire Long-Hu | Champ mis à jour: ${field} = ${value}`);
+          } catch (error) {
+            console.error("Empire Long-Hu | Erreur lors de la mise à jour automatique:", error);
           }
-          
-          // Soumettre le formulaire avec les données mises à jour
-          await this._onSubmit(event, { updateData: formData });
-          
-          // Afficher l'indicateur de sauvegarde automatique
-          const indicator = html.find('.auto-save-indicator');
-          indicator.css('opacity', '1');
-          setTimeout(() => {
-            indicator.css('opacity', '0.8');
-          }, 1000);
+        }
+      });
+      
+      // Ajouter un gestionnaire spécifique pour les talents
+      html.find('.talent-value input').on('change', async (event) => {
+        if (this.actor.getFlag("empire-long-hu", "editMode")) {
+          try {
+            const field = event.target.name;
+            if (!field) return;
+            
+            // Forcer la conversion en nombre entier
+            const value = parseInt(event.target.value) || 0;
+            
+            // Extraire la clé du talent à partir du nom du champ
+            const talentKey = field.match(/system\.talents\.([^.]+)\.value/)?.[1];
+            if (!talentKey) return;
+            
+            // Créer un objet de mise à jour avec la structure correcte
+            const updateData = {};
+            updateData[`system.talents.${talentKey}.value`] = value;
+            
+            // Mettre à jour directement l'acteur
+            await this.actor.update(updateData);
+            console.log(`Empire Long-Hu | Talent mis à jour: ${talentKey} = ${value}`);
+            
+            // Mettre à jour le total affiché sans recharger la page
+            const totalElement = event.target.closest('.talent-item').querySelector('.talent-total');
+            if (totalElement) {
+              const mod = this.actor.system.talents[talentKey]?.mod || 0;
+              totalElement.textContent = value + mod;
+            }
+          } catch (error) {
+            console.error("Empire Long-Hu | Erreur lors de la mise à jour du talent:", error);
+          }
         }
       });
     }
@@ -149,19 +195,78 @@ export class EmpireLongHuCharacterSheet extends ActorSheet {
   
   /** @override */
   async _updateObject(event, formData) {
-    // Mettre à jour le rang si le niveau a changé
-    if (formData["system.level"]) {
-      const level = parseInt(formData["system.level"]);
-      const newRank = this._getRankName(level);
-      formData["system.rank"] = newRank;
+    try {
+      // Convertir toutes les valeurs numériques
+      for (const [key, value] of Object.entries(formData)) {
+        if (typeof value === "string" && !isNaN(Number(value)) && key.includes("system.")) {
+          formData[key] = Number(value);
+        }
+      }
+      
+      // Mettre à jour le rang si le niveau a changé
+      if (formData["system.level"]) {
+        const level = parseInt(formData["system.level"]);
+        const newRank = this._getRankName(level);
+        formData["system.rank"] = newRank;
+      }
+      
+      // Traitement spécial pour les talents
+      for (const [key, value] of Object.entries(formData)) {
+        if (key.match(/system\.talents\.[^.]+\.value/)) {
+          // S'assurer que les valeurs des talents sont des nombres
+          formData[key] = Number(value) || 0;
+        }
+      }
+      
+      // Journaliser les données avant la mise à jour
+      console.log("Empire Long-Hu | Mise à jour de l'objet avec données:", formData);
+      
+      return super._updateObject(event, formData);
+    } catch (error) {
+      console.error("Empire Long-Hu | Erreur lors de la mise à jour de l'objet:", error);
+      ui.notifications.error("Erreur lors de l'enregistrement des modifications. Consultez la console pour plus de détails.");
+      return false;
     }
-    
-    return super._updateObject(event, formData);
   }
   
   /** @override */
   async _onSubmit(event, {updateData=null, preventClose=true, preventRender=false}={}) {
-    // Permettre la soumission normale du formulaire
-    return super._onSubmit(event, {updateData, preventClose, preventRender});
+    // Empêcher le comportement par défaut du formulaire
+    event.preventDefault();
+    
+    try {
+      // Récupérer les données du formulaire
+      const formData = this._getSubmitData();
+      
+      // Convertir toutes les valeurs numériques
+      for (const [key, value] of Object.entries(formData)) {
+        if (typeof value === "string" && !isNaN(Number(value)) && key.includes("system.")) {
+          formData[key] = Number(value);
+        }
+      }
+      
+      // Mettre à jour le niveau et le rang si nécessaire
+      if (formData["system.level"]) {
+        const level = parseInt(formData["system.level"]);
+        const newRank = this._getRankName(level);
+        formData["system.rank"] = newRank;
+      }
+      
+      // Traitement spécial pour les talents
+      for (const [key, value] of Object.entries(formData)) {
+        if (key.match(/system\.talents\.[^.]+\.value/)) {
+          // S'assurer que les valeurs des talents sont des nombres
+          formData[key] = Number(value) || 0;
+        }
+      }
+      
+      // Mettre à jour l'acteur
+      console.log("Empire Long-Hu | Soumission du formulaire avec données:", formData);
+      return this.actor.update(formData);
+    } catch (error) {
+      console.error("Empire Long-Hu | Erreur lors de la soumission du formulaire:", error);
+      ui.notifications.error("Erreur lors de l'enregistrement des modifications. Consultez la console pour plus de détails.");
+      return false;
+    }
   }
 }

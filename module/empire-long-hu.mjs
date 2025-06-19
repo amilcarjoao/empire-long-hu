@@ -8,15 +8,22 @@ import { EmpireLongHuItemDataModel } from "./data/item.mjs";
  * @extends {Game.System}
  */
 class EmpireLongHu {
+  
+  /**
+   * Version du système
+   * @type {string}
+   */
+  static VERSION = "0.0.13";
   /**
    * Initialisation du système
    */
   static init() {
-    console.log("Empire de la Long-Hu | Initialisation du système");
+    console.log(`Empire de la Long-Hu | Initialisation du système v${this.VERSION}`);
     
     // Enregistrement des paramètres du système
     game.empire = {
-      config: empire
+      config: empire,
+      version: this.VERSION
     };
     
     // Enregistrement des modèles de données
@@ -143,7 +150,56 @@ class EmpireLongHu {
  * @extends {Actor}
  */
 class EmpireLongHuActor extends Actor {
-  // Fonctionnalités spécifiques aux acteurs
+  /** @override */
+  prepareData() {
+    super.prepareData();
+    
+    // S'assurer que les valeurs numériques sont bien des nombres
+    if (this.system) {
+      // Convertir les valeurs des éléments
+      if (this.system.elements) {
+        for (const [key, element] of Object.entries(this.system.elements)) {
+          if (element.value !== undefined) {
+            element.value = Number(element.value) || 0;
+          }
+          if (element.max !== undefined) {
+            element.max = Number(element.max) || 5;
+          }
+        }
+      }
+      
+      // Convertir les valeurs des ressources
+      if (this.system.chi) {
+        if (this.system.chi.corporel) {
+          this.system.chi.corporel.value = Number(this.system.chi.corporel.value) || 0;
+          this.system.chi.corporel.max = Number(this.system.chi.corporel.max) || 0;
+        }
+        if (this.system.chi.spirituel) {
+          this.system.chi.spirituel.value = Number(this.system.chi.spirituel.value) || 0;
+          this.system.chi.spirituel.max = Number(this.system.chi.spirituel.max) || 0;
+        }
+      }
+      
+      if (this.system.souffle) {
+        this.system.souffle.value = Number(this.system.souffle.value) || 0;
+        this.system.souffle.max = Number(this.system.souffle.max) || 0;
+      }
+      
+      // Convertir les valeurs des talents
+      if (this.system.talents) {
+        for (const [key, talent] of Object.entries(this.system.talents)) {
+          if (talent.value !== undefined) {
+            talent.value = Number(talent.value) || 0;
+          }
+          if (talent.mod !== undefined) {
+            talent.mod = Number(talent.mod) || 0;
+          }
+          // Recalculer le total
+          talent.total = (talent.value || 0) + (talent.mod || 0);
+        }
+      }
+    }
+  }
 }
 
 /**
@@ -202,6 +258,29 @@ class EmpireLongHuCharacterSheet extends ActorSheet {
       const newRank = this._getRankName(context.system.level);
       await this.actor.update({ "system.rank": newRank });
       context.system.rank = newRank;
+    }
+    
+    // S'assurer que les ressources sont initialisées
+    if (!context.system.chi) {
+      context.system.chi = {
+        corporel: { value: 0, max: 0 },
+        spirituel: { value: 0, max: 0 }
+      };
+    }
+    
+    if (!context.system.souffle) {
+      context.system.souffle = { value: 0, max: 0 };
+    }
+    
+    // S'assurer que les éléments sont initialisés
+    if (!context.system.elements) {
+      context.system.elements = {
+        metal: { value: 0, max: 5 },
+        eau: { value: 0, max: 5 },
+        terre: { value: 0, max: 5 },
+        bois: { value: 0, max: 5 },
+        feu: { value: 0, max: 5 }
+      };
     }
     
     // Préparation des talents
@@ -373,7 +452,25 @@ class EmpireLongHuCharacterSheet extends ActorSheet {
     html.find('.toggle-switch input').on('change', async (event) => {
       // Si on passe du mode édition au mode jeu, soumettre le formulaire pour enregistrer les modifications
       if (!event.target.checked && this.actor.getFlag("empire-long-hu", "editMode")) {
-        await this._onSubmit(event);
+        try {
+          // Récupérer les données du formulaire
+          const formData = this._getSubmitData();
+          
+          // Convertir les valeurs numériques
+          for (const [key, value] of Object.entries(formData)) {
+            if (typeof value === "string" && !isNaN(Number(value)) && key.includes("system.")) {
+              formData[key] = Number(value);
+            }
+          }
+          
+          // Mettre à jour l'acteur avec les données du formulaire
+          await this.actor.update(formData);
+          console.log("Empire Long-Hu | Sauvegarde automatique lors du passage en mode jeu");
+          ui.notifications.info("Modifications enregistrées");
+        } catch (error) {
+          console.error("Empire Long-Hu | Erreur lors de la sauvegarde automatique:", error);
+          ui.notifications.error("Erreur lors de l'enregistrement des modifications");
+        }
       }
       
       // Mettre à jour le flag de mode d'édition
@@ -471,7 +568,11 @@ Hooks.once("init", function() {
 
 Hooks.once("ready", function() {
   console.log("Empire de la Long-Hu | Système prêt");
+  console.log(`Empire de la Long-Hu | Version du système: ${EmpireLongHu.VERSION}`);
   console.log(`Empire de la Long-Hu | Version de Foundry détectée: ${game.version}`);
+  
+  // Vérifier si les hooks de sauvegarde sont correctement enregistrés
+  console.log("Empire de la Long-Hu | Vérification des hooks de sauvegarde");
 });
 
 // Hook pour la migration des données
@@ -479,4 +580,29 @@ Hooks.once("i18nInit", () => {
   // Vérifier si une migration est nécessaire
   const currentVersion = game.settings.get("core", "version");
   console.log(`Empire de la Long-Hu | Préparation pour Foundry v${currentVersion}`);
+});
+
+// Hook pour surveiller les mises à jour d'acteurs
+Hooks.on("updateActor", (actor, data, options, userId) => {
+  console.log("Empire de la Long-Hu | Acteur mis à jour:", actor.name, data);
+  
+  // Vérifier si les données contiennent des talents
+  if (data.system?.talents) {
+    console.log("Empire Long-Hu | Talents mis à jour:", data.system.talents);
+  }
+  
+  // Vérifier si les données contiennent des éléments
+  if (data.system?.elements) {
+    console.log("Empire Long-Hu | Éléments mis à jour:", data.system.elements);
+  }
+  
+  // Vérifier si les données contiennent des ressources
+  if (data.system?.chi || data.system?.souffle) {
+    console.log("Empire Long-Hu | Ressources mises à jour");
+  }
+});
+
+// Hook pour surveiller les erreurs de mise à jour
+Hooks.on("error", (err) => {
+  console.error("Empire de la Long-Hu | Erreur détectée:", err);
 });

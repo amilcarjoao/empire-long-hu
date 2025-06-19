@@ -598,20 +598,7 @@
 }
 
 /* Indicateur de sauvegarde automatique */
-.empire-long-hu.character .auto-save-indicator {
-  font-size: 0.8em;
-  color: #4CAF50;
-  margin-left: 10px;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  opacity: 0.8;
-  transition: opacity 0.3s ease-in-out;
-}
-
-.empire-long-hu.character .auto-save-indicator i {
-  font-size: 0.9em;
-}
+/* Styles supprimés pour l'indicateur de sauvegarde automatique */
 
 /* Styles pour les talents */
 .empire-long-hu.character .talents-header {
