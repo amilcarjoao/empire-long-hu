@@ -2,6 +2,10 @@
 
 Ce dossier contient les versions en ligne des newsletters envoyées via Mailjet.
 
+## 📖 Documentation Complète
+
+Pour un guide détaillé de configuration et d'utilisation, consultez [SETUP-GUIDE.md](SETUP-GUIDE.md).
+
 ## Comment utiliser ce système
 
 ### Configuration GitHub Pages
