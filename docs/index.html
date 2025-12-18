@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'Empire de la Long-Hu - Newsletter Archive</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            padding: 40px;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .newsletter-list {
+            list-style: none;
+        }
+        
+        .newsletter-item {
+            border-bottom: 1px solid #eee;
+            padding: 20px 0;
+            transition: background-color 0.3s;
+        }
+        
+        .newsletter-item:hover {
+            background-color: #f9f9f9;
+            padding-left: 10px;
+            margin-left: -10px;
+            padding-right: 10px;
+            margin-right: -10px;
+        }
+        
+        .newsletter-item:last-child {
+            border-bottom: none;
+        }
+        
+        .newsletter-link {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .newsletter-link:hover {
+            text-decoration: underline;
+        }
+        
+        .newsletter-date {
+            color: #999;
+            font-size: 0.9em;
+        }
+        
+        .no-newsletters {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+        
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>L'Empire de la Long-Hu</h1>
+        <p class="subtitle">Archive des newsletters</p>
+        
+        <ul class="newsletter-list" id="newsletterList">
+            <!-- Newsletters will be listed here -->
+            <li class="newsletter-item">
+                <a href="newsletters/sample.html" class="newsletter-link">Bienvenue dans L'Empire de la Long-Hu</a>
+                <span class="newsletter-date">Newsletter d'exemple</span>
+            </li>
+        </ul>
+        
+        <footer>
+            <p>&copy; 2024 L'Empire de la Long-Hu. Tous droits réservés.</p>
+        </footer>
+    </div>
+</body>
+</html>

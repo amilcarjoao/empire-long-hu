@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<!--
+  EXEMPLE DE TEMPLATE MAILJET
+  
+  Copiez ce code dans Mailjet pour créer votre template d'email.
+  Ce template inclut un lien "Voir en ligne" qui fonctionne correctement.
+-->
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newsletter - L'Empire de la Long-Hu</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f4f4f4;">
+    <!-- Lien "Voir en ligne" en haut -->
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #f4f4f4;">
+        <tr>
+            <td align="center" style="padding: 20px 0 10px 0;">
+                <p style="margin: 0; font-size: 12px; color: #666;">
+                    Problème d'affichage ? 
+                    <!-- OPTION 1: Lien vers votre propre hébergement GitHub Pages -->
+                    <a href="https://amilcarjoao.github.io/empire-long-hu/newsletters/[NOM-NEWSLETTER].html" 
+                       style="color: #667eea; text-decoration: none;">
+                        Voir cette newsletter dans votre navigateur
+                    </a>
+                    
+                    <!-- OPTION 2: Si vous utilisez l'hébergement Mailjet, utilisez leur variable -->
+                    <!-- Décommentez la ligne suivante et commentez celle au-dessus -->
+                    <!-- <a href="[[PERMALINK]]" style="color: #667eea; text-decoration: none;">
+                        Voir cette newsletter dans votre navigateur
+                    </a> -->
+                </p>
+            </td>
+        </tr>
+    </table>
+    
+    <!-- Conteneur principal de l'email -->
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #f4f4f4;">
+        <tr>
+            <td align="center" style="padding: 0 20px;">
+                <table width="600" cellpadding="0" cellspacing="0" border="0" style="background-color: white; max-width: 600px;">
+                    
+                    <!-- En-tête -->
+                    <tr>
+                        <td align="center" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px 20px;">
+                            <h1 style="margin: 0 0 10px 0; color: white; font-size: 32px;">
+                                L'Empire de la Long-Hu
+                            </h1>
+                            <p style="margin: 0; color: rgba(255,255,255,0.9); font-size: 16px;">
+                                Newsletter
+                            </p>
+                        </td>
+                    </tr>
+                    
+                    <!-- Contenu -->
+                    <tr>
+                        <td style="padding: 40px 30px;">
+                            <h2 style="color: #667eea; margin: 0 0 15px 0;">Bonjour !</h2>
+                            
+                            <p style="margin: 0 0 15px 0; line-height: 1.6; color: #333;">
+                                Voici les dernières nouvelles de L'Empire de la Long-Hu.
+                            </p>
+                            
+                            <!-- Ajoutez votre contenu ici -->
+                            
+                            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 20px 0;">
+                                <tr>
+                                    <td align="center">
+                                        <a href="https://github.com/amilcarjoao/empire-long-hu" 
+                                           style="display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+                                                  color: white; padding: 15px 30px; text-decoration: none; 
+                                                  border-radius: 5px; font-weight: bold;">
+                                            Voir le projet sur GitHub
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    
+                    <!-- Pied de page -->
+                    <tr>
+                        <td style="background-color: #f9f9f9; padding: 30px; text-align: center; border-top: 1px solid #eee;">
+                            <p style="margin: 0 0 10px 0; font-size: 14px; color: #666;">
+                                Vous recevez cet email car vous êtes abonné à la newsletter de L'Empire de la Long-Hu.
+                            </p>
+                            <p style="margin: 0 0 20px 0; font-size: 14px;">
+                                <a href="https://amilcarjoao.github.io/empire-long-hu/" 
+                                   style="color: #667eea; text-decoration: none;">
+                                    Voir en ligne
+                                </a> |
+                                <a href="[[UNSUB_LINK_FR]]" 
+                                   style="color: #667eea; text-decoration: none;">
+                                    Se désabonner
+                                </a>
+                            </p>
+                            <p style="margin: 0; font-size: 12px; color: #999;">
+                                &copy; 2024 L'Empire de la Long-Hu. Tous droits réservés.
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
