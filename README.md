@@ -57,6 +57,12 @@ Ce système est conçu pour le jeu de rôle maison "L'Empire de la Long-Hu" sur 
   - Drag Ruler pour la gestion des déplacements
   - Simple Calendar pour la gestion du temps
 
+## Newsletter
+
+Les versions en ligne de la newsletter sont disponibles sur [https://amilcarjoao.github.io/empire-long-hu/](https://amilcarjoao.github.io/empire-long-hu/)
+
+Pour plus d'informations sur la configuration de la newsletter avec Mailjet, consultez le fichier [docs/README.md](docs/README.md).
+
 ## À développer
 
 - Implémentation complète des mécaniques de jeu
