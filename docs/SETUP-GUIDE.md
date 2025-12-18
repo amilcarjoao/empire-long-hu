@@ -119,7 +119,7 @@ Une fois GitHub Pages activé, testez les liens :
    - Vérifiez que le déploiement est réussi
 
 2. **Vérifiez l'URL**
-   - L'URL doit être exactement : `https://amilcarjoao.github.io/empire-long-hu/newsletters/{filename}.html`
+   - L'URL doit être exactement : `https://amilcarjoao.github.io/empire-long-hu/newsletters/{{NEWSLETTER_FILENAME}}.html`
    - Attention à la casse (majuscules/minuscules)
    - Vérifiez qu'il n'y a pas d'espaces dans le nom de fichier
 
