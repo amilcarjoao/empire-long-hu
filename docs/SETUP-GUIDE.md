@@ -30,7 +30,8 @@ Permettre aux destinataires de votre newsletter de la consulter en ligne via un 
 2. Copiez le contenu du fichier `docs/mailjet-template-example.html`
 3. Collez-le dans l'éditeur HTML de Mailjet
 4. Personnalisez le contenu selon vos besoins
-5. **Important**: Remplacez `{{NEWSLETTER_FILENAME}}` par le nom réel de votre fichier HTML
+5. **Important**: Remplacez `{{NEWSLETTER_FILENAME}}` par le nom réel de votre fichier HTML sans l'extension
+   - Exemple: Remplacez `{{NEWSLETTER_FILENAME}}` par `2024-12-newsletter` (pas `2024-12-newsletter.html`)
 
 ### Option B: Ajouter le lien à un template existant
 
@@ -119,9 +120,10 @@ Une fois GitHub Pages activé, testez les liens :
    - Vérifiez que le déploiement est réussi
 
 2. **Vérifiez l'URL**
-   - L'URL doit être exactement : `https://amilcarjoao.github.io/empire-long-hu/newsletters/{{NEWSLETTER_FILENAME}}.html`
+   - L'URL doit être exactement : `https://amilcarjoao.github.io/empire-long-hu/newsletters/2024-12-newsletter.html` (exemple)
    - Attention à la casse (majuscules/minuscules)
    - Vérifiez qu'il n'y a pas d'espaces dans le nom de fichier
+   - Assurez-vous que le nom de fichier correspond exactement au fichier que vous avez créé dans `docs/newsletters/`
 
 3. **Vérifiez que le fichier existe**
    - Allez sur GitHub et vérifiez que le fichier est bien dans `docs/newsletters/`
