@@ -25,7 +25,7 @@ Dans vos templates d'emails Mailjet, ajoutez un lien "Voir en ligne" en haut de 
 
 ```html
 <p style="text-align: center; font-size: 12px;">
-    <a href="https://amilcarjoao.github.io/empire-long-hu/newsletters/[NOM-DE-LA-NEWSLETTER].html">
+    <a href="https://amilcarjoao.github.io/empire-long-hu/newsletters/{{NEWSLETTER_FILENAME}}.html">
         Voir cette newsletter dans votre navigateur
     </a>
 </p>

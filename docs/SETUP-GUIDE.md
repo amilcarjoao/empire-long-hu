@@ -30,7 +30,7 @@ Permettre aux destinataires de votre newsletter de la consulter en ligne via un 
 2. Copiez le contenu du fichier `docs/mailjet-template-example.html`
 3. Collez-le dans l'éditeur HTML de Mailjet
 4. Personnalisez le contenu selon vos besoins
-5. **Important**: Remplacez `[NOM-NEWSLETTER]` par le nom réel de votre fichier HTML
+5. **Important**: Remplacez `{{NEWSLETTER_FILENAME}}` par le nom réel de votre fichier HTML
 
 ### Option B: Ajouter le lien à un template existant
 
@@ -42,7 +42,7 @@ Ajoutez ce code HTML en haut de votre template Mailjet existant :
         <td align="center" style="padding: 20px 0 10px 0;">
             <p style="margin: 0; font-size: 12px; color: #666;">
                 Problème d'affichage ? 
-                <a href="https://amilcarjoao.github.io/empire-long-hu/newsletters/NOM-FICHIER.html" 
+                <a href="https://amilcarjoao.github.io/empire-long-hu/newsletters/{{NEWSLETTER_FILENAME}}.html" 
                    style="color: #667eea; text-decoration: none;">
                     Voir cette newsletter dans votre navigateur
                 </a>
@@ -87,8 +87,8 @@ Le workflow GitHub Actions déploiera automatiquement votre nouvelle newsletter.
 
 1. Dans Mailjet, créez une nouvelle campagne
 2. Utilisez votre template configuré
-3. Dans le lien "Voir en ligne", assurez-vous que l'URL correspond exactement au fichier que vous avez créé :
-   - `https://amilcarjoao.github.io/empire-long-hu/newsletters/2024-12-newsletter.html`
+3. Dans le lien "Voir en ligne", remplacez `{{NEWSLETTER_FILENAME}}` par le nom exact du fichier que vous avez créé :
+   - Par exemple: `https://amilcarjoao.github.io/empire-long-hu/newsletters/2024-12-newsletter.html`
 4. Testez la newsletter en vous l'envoyant d'abord
 5. Cliquez sur le lien "Voir en ligne" pour vérifier qu'il fonctionne
 6. Si tout fonctionne, envoyez la newsletter à votre liste
@@ -119,7 +119,7 @@ Une fois GitHub Pages activé, testez les liens :
    - Vérifiez que le déploiement est réussi
 
 2. **Vérifiez l'URL**
-   - L'URL doit être exactement : `https://amilcarjoao.github.io/empire-long-hu/newsletters/[nom-fichier].html`
+   - L'URL doit être exactement : `https://amilcarjoao.github.io/empire-long-hu/newsletters/{filename}.html`
    - Attention à la casse (majuscules/minuscules)
    - Vérifiez qu'il n'y a pas d'espaces dans le nom de fichier
 
